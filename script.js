@@ -9,7 +9,7 @@ const DEFAULT_PAGE  = "home";
 const MOBILE_BP     = 760;
 const HEADER_SCROLL = 48;
 const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-const TRANSITION_MS = reducedMotion ? 0 : 260;
+const TRANSITION_MS = reducedMotion ? 0 : 140;
 
 const pageMap = new Map(pageViews.map(v => [v.dataset.page, v]));
 let transitionTimer = null;
@@ -137,96 +137,6 @@ function initYear() {
   });
 }
 
-/* ---- hero entrance animation ---- */
-function initHeroEntrance() {
-  if (reducedMotion) return;
-  if (getPageFromHash() !== DEFAULT_PAGE) return;
-
-  const items = [
-    { el: document.querySelector(".hero-media"),   cls: "hero-slide", delay: 0   },
-    { el: document.querySelector(".hero-copy h1"), cls: "hero-fade",  delay: 120 },
-    { el: document.querySelector(".hero-role"),    cls: "hero-fade",  delay: 230 },
-  ];
-
-  document.querySelectorAll(".hero-bio").forEach((el, i) => {
-    items.push({ el, cls: "hero-fade", delay: 340 + i * 80 });
-  });
-
-  items.forEach(({ el, cls }) => { if (el) el.classList.add(cls); });
-
-  requestAnimationFrame(() => {
-    items.forEach(({ el, delay }) => {
-      if (!el) return;
-      setTimeout(() => el.classList.add("hero-visible"), delay);
-    });
-  });
-}
-
-/* ---- scroll reveal ---- */
-function initRevealAnimations() {
-  if (reducedMotion) return;
-
-  const staggerRules = [
-    { selector: ".hobby-grid .hobby-card",    delay: 80  },
-    { selector: ".record-list .record-entry", delay: 110 },
-    { selector: ".paper-entry",               delay: 90  },
-    { selector: ".skills-grid .skill-row",    delay: 55  },
-  ];
-
-  staggerRules.forEach(({ selector, delay }) => {
-    const groups = new Map();
-    document.querySelectorAll(selector).forEach(el => {
-      const parent = el.parentElement;
-      if (!groups.has(parent)) groups.set(parent, []);
-      groups.get(parent).push(el);
-    });
-    groups.forEach(items => items.forEach((el, i) => {
-      el.dataset.revealDelay = i * delay;
-    }));
-  });
-
-  const targets = document.querySelectorAll([
-    ".paper-entry",
-    ".record-entry",
-    ".hobby-card",
-    ".content-section > h2",
-    ".page-title",
-    ".skill-row",
-    ".awards-copy p",
-    ".service-list li",
-  ].join(", "));
-
-  targets.forEach(el => el.classList.add("reveal"));
-
-  const observer = new IntersectionObserver(entries => {
-    entries.forEach(entry => {
-      if (!entry.isIntersecting) return;
-      const delay = Number(entry.target.dataset.revealDelay ?? 0);
-      entry.target.style.transitionDelay = `${delay}ms`;
-      entry.target.classList.add("is-revealed");
-      entry.target.addEventListener("transitionend", () => {
-        entry.target.style.transitionDelay = "";
-      }, { once: true });
-      observer.unobserve(entry.target);
-    });
-  }, { threshold: 0.08, rootMargin: "0px 0px -20px 0px" });
-
-  targets.forEach(el => observer.observe(el));
-}
-
-/* ---- lazy image fade ---- */
-function initImageFade() {
-  document.querySelectorAll("img[loading='lazy']").forEach(img => {
-    const reveal = () => img.classList.add("img-loaded");
-    if (img.complete) {
-      reveal();
-    } else {
-      img.addEventListener("load",  reveal, { once: true });
-      img.addEventListener("error", reveal, { once: true });
-    }
-  });
-}
-
 /* ---- video: pause when offscreen ---- */
 function initVideoObserver() {
   const videos = document.querySelectorAll("video[autoplay]");
@@ -318,9 +228,6 @@ initThemeToggle();
 initNavigation();
 initHeader();
 initYear();
-initHeroEntrance();
-initRevealAnimations();
-initImageFade();
 initVideoObserver();
 initScrollToTop();
 initCopyEmail();

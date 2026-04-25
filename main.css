@@ -917,58 +917,33 @@ a {
   transition: color 0.18s ease, opacity 0.18s ease;
 }
 
-/* page transitions */
+/* page transitions — subtle */
 @keyframes page-out {
-  to { opacity: 0; transform: translateY(-10px); }
+  to { opacity: 0; }
 }
 @keyframes page-in {
-  from { opacity: 0; transform: translateY(12px); }
-  to   { opacity: 1; transform: none; }
+  from { opacity: 0; }
+  to   { opacity: 1; }
 }
 .page-out {
-  animation: page-out 0.26s ease forwards;
+  animation: page-out 0.14s ease forwards;
   pointer-events: none;
 }
 .page-in {
-  animation: page-in 0.32s ease forwards;
+  animation: page-in 0.18s ease forwards;
 }
 
-/* scroll reveal */
-.reveal {
-  opacity: 0;
-  transform: translateY(18px);
-  transition: opacity 0.55s ease, transform 0.55s ease;
-}
-.reveal.is-revealed {
-  opacity: 1;
-  transform: none;
-}
-
-/* paper entry image zoom on hover */
+/* paper entry image — subtle hover */
 .paper-image {
-  transition: transform 0.38s ease;
   overflow: hidden;
 }
-.paper-entry:hover .paper-image {
-  transform: scale(1.03);
-}
 
-/* hobby card hover lift */
+/* hobby card subtle hover */
 .hobby-card {
-  transition: transform 0.28s ease, box-shadow 0.28s ease;
+  transition: box-shadow 0.2s ease;
 }
 .hobby-card:hover {
-  transform: translateY(-4px);
-  box-shadow: 0 12px 28px rgba(0, 0, 0, 0.11);
-}
-
-/* lazy image fade-in on load */
-img[loading="lazy"] {
-  opacity: 0;
-  transition: opacity 0.4s ease;
-}
-img[loading="lazy"].img-loaded {
-  opacity: 1;
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.08);
 }
 
 /* balanced heading wrapping */
@@ -1046,23 +1021,6 @@ a {
 .hero-media:hover .profile-photo {
   transform: scale(1.02);
   box-shadow: 0 20px 48px rgba(0, 0, 0, 0.18);
-}
-
-/* hero entrance */
-.hero-slide {
-  opacity: 0;
-  transform: translateX(-14px);
-  transition: opacity 0.65s ease, transform 0.65s ease;
-}
-.hero-fade {
-  opacity: 0;
-  transform: translateY(14px);
-  transition: opacity 0.58s ease, transform 0.58s ease;
-}
-.hero-slide.hero-visible,
-.hero-fade.hero-visible {
-  opacity: 1;
-  transform: none;
 }
 
 /* scroll-to-top button */
@@ -1186,24 +1144,30 @@ body.dark-mode .site-header {
 }
 body.dark-mode .site-header.is-scrolled { background: rgba(10, 10, 12, 0.98); }
 
-body.dark-mode .hero-role     { color: #c0c0ca; }
-body.dark-mode .hero-bio      { color: #b0b0ba; }
-body.dark-mode .paper-tags    { color: #86868e; }
-body.dark-mode .paper-summary { color: #b8b8c2; }
-body.dark-mode .record-role   { color: #8a8a94; }
-body.dark-mode .record-meta   { color: #8a8a94; }
-body.dark-mode .skill-items   { color: #909098; }
-body.dark-mode .awards-copy p { color: #b0b0ba; }
-body.dark-mode .service-list li { color: #b8b8c2; }
-body.dark-mode .page-footer p { color: #6e6e73; }
+body.dark-mode .hero-role     { color: #d0d0da; }
+body.dark-mode .hero-bio      { color: #c8c8d2; }
+body.dark-mode .paper-tags    { color: #a8a8b2; }
+body.dark-mode .paper-summary { color: #d0d0da; }
+body.dark-mode .record-role   { color: #b8b8c2; }
+body.dark-mode .record-meta   { color: #b0b0ba; }
+body.dark-mode .skill-items   { color: #c8c8d2; }
+body.dark-mode .awards-copy p { color: #c8c8d2; }
+body.dark-mode .service-list li { color: #c8c8d2; }
+body.dark-mode .page-footer p { color: #909098; }
 body.dark-mode .paper-image   { background: #1c1c1e; }
+
+body.dark-mode .record-logo img {
+  background: #f5f5f7;
+  padding: 8px 10px;
+  border-radius: 8px;
+}
 
 body.dark-mode .hobby-card {
   background: #1c1c1e;
   box-shadow: 0 2px 16px rgba(0, 0, 0, 0.45);
 }
 body.dark-mode .hobby-card p,
-body.dark-mode .hobby-card li { color: #909098; }
+body.dark-mode .hobby-card li { color: #c0c0ca; }
 
 body.dark-mode .plink          { color: #b8b8c2; }
 body.dark-mode .plink--github  { color: #d0d0d8; }
@@ -1260,8 +1224,6 @@ body.dark-mode .code-link:hover { background: #4a9eff; color: #0f0f11; border-co
   .hobby-card { break-inside: avoid; }
 
   .hobby-card { background: none; box-shadow: none; border: 1px solid #ccc; }
-
-  .reveal { opacity: 1 !important; transform: none !important; }
 
   .page-view { break-before: page; }
   .page-view:first-of-type { break-before: auto; }
