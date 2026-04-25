@@ -1,0 +1,500 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="color-scheme" content="light dark">
+  <meta name="theme-color" content="#254f79" media="(prefers-color-scheme: light)">
+  <meta name="theme-color" content="#0f0f11" media="(prefers-color-scheme: dark)">
+  <meta name="description" content="Urme Bose is a data scientist and computational behavioural researcher working across multimodal sensing, digital health, wearable AI, and longitudinal modelling.">
+  <meta property="og:title" content="Urme Bose — Machine Learning Engineer">
+  <meta property="og:description" content="Data scientist and computational behavioural researcher working across multimodal sensing, digital health, wearable AI, and longitudinal modelling.">
+  <meta property="og:type" content="website">
+  <meta property="og:image" content="assets/profile.jpeg">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Urme Bose — Machine Learning Engineer">
+  <meta name="twitter:description" content="Data scientist and computational behavioural researcher.">
+  <title>Urme Bose</title>
+  <link rel="icon" href="assets/brand-mark.svg" type="image/svg+xml">
+  <link rel="apple-touch-icon" href="assets/brand-mark.svg">
+  <link rel="stylesheet" href="main.css">
+</head>
+<body>
+  <a class="skip-link" href="#content-root">Skip to content</a>
+  <svg class="icon-sprite" aria-hidden="true" focusable="false">
+    <symbol id="icon-search" viewBox="0 0 24 24">
+      <path d="M10.5 4a6.5 6.5 0 1 1 0 13 6.5 6.5 0 0 1 0-13Zm0 1.8a4.7 4.7 0 1 0 0 9.4 4.7 4.7 0 0 0 0-9.4Zm5.85 10.58 3.65 3.65-1.27 1.27-3.65-3.65 1.27-1.27Z"/>
+    </symbol>
+    <symbol id="icon-github" viewBox="0 0 24 24">
+      <path d="M12 2C6.48 2 2 6.58 2 12.23c0 4.52 2.87 8.35 6.84 9.7.5.1.68-.22.68-.49 0-.24-.01-1.05-.01-1.9-2.78.62-3.37-1.21-3.37-1.21-.45-1.2-1.11-1.51-1.11-1.51-.91-.64.07-.63.07-.63 1 .07 1.53 1.06 1.53 1.06.9 1.57 2.35 1.12 2.92.86.09-.67.35-1.12.63-1.38-2.22-.26-4.56-1.14-4.56-5.08 0-1.12.39-2.03 1.03-2.74-.1-.26-.45-1.31.1-2.74 0 0 .84-.28 2.75 1.05A9.3 9.3 0 0 1 12 6.84c.85 0 1.71.12 2.51.35 1.91-1.33 2.75-1.05 2.75-1.05.55 1.43.2 2.48.1 2.74.64.71 1.03 1.62 1.03 2.74 0 3.95-2.34 4.82-4.58 5.08.36.32.68.95.68 1.91 0 1.38-.01 2.49-.01 2.83 0 .27.18.6.69.49A10.25 10.25 0 0 0 22 12.23C22 6.58 17.52 2 12 2Z"/>
+    </symbol>
+    <symbol id="icon-email" viewBox="0 0 24 24">
+      <path d="M3 6.75A1.75 1.75 0 0 1 4.75 5h14.5A1.75 1.75 0 0 1 21 6.75v10.5A1.75 1.75 0 0 1 19.25 19H4.75A1.75 1.75 0 0 1 3 17.25V6.75Zm1.5.41v.16l7.09 5.18a.7.7 0 0 0 .82 0l7.09-5.18v-.16a.25.25 0 0 0-.25-.25H4.75a.25.25 0 0 0-.25.25Zm15 1.97-6.2 4.53a2.2 2.2 0 0 1-2.6 0L4.5 9.13v8.12c0 .14.11.25.25.25h14.5a.25.25 0 0 0 .25-.25V9.13Z"/>
+    </symbol>
+    <symbol id="icon-link" viewBox="0 0 24 24">
+      <path d="M14 3h7v7h-1.8V6.07l-9.76 9.75-1.27-1.27 9.75-9.76H14V3ZM5 5.8h5.2V4H5a1 1 0 0 0-1 1v14a1 1 0 0 0 1 1h14a1 1 0 0 0 1-1v-5.2h-1.8V18.2H5V5.8Z"/>
+    </symbol>
+    <symbol id="icon-home" viewBox="0 0 24 24">
+      <path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"/>
+    </symbol>
+    <symbol id="icon-moon" viewBox="0 0 24 24">
+      <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>
+    </symbol>
+    <symbol id="icon-sun" viewBox="0 0 24 24">
+      <circle cx="12" cy="12" r="5"/>
+      <line x1="12" y1="1"  x2="12" y2="3"/>
+      <line x1="12" y1="21" x2="12" y2="23"/>
+      <line x1="4.22" y1="4.22"   x2="5.64"  y2="5.64"/>
+      <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/>
+      <line x1="1"  y1="12" x2="3"  y2="12"/>
+      <line x1="21" y1="12" x2="23" y2="12"/>
+      <line x1="4.22" y1="19.78"  x2="5.64"  y2="18.36"/>
+      <line x1="18.36" y1="5.64"  x2="19.78" y2="4.22"/>
+    </symbol>
+  </svg>
+  <header class="site-header">
+    <div class="site-shell header-shell">
+      <a class="site-brand" href="#home" aria-label="Urme Bose home">
+        <img
+          src="assets/brand-mark.svg"
+          alt=""
+          class="brand-mark"
+          width="80"
+          height="80"
+          decoding="async"
+        >
+        <span>Urme Bose</span>
+      </a>
+      <button
+        class="nav-toggle"
+        type="button"
+        aria-expanded="false"
+        aria-controls="site-nav"
+        aria-label="Open navigation"
+      >
+        Menu
+      </button>
+      <nav class="site-nav" aria-label="Primary">
+        <ul class="nav-list" id="site-nav">
+          <li><a href="#home" data-page-link="home">Home</a></li>
+          <li><a href="#education" data-page-link="education">Education</a></li>
+          <li><a href="#about" data-page-link="about">About</a></li>
+        </ul>
+      </nav>
+      <button class="theme-toggle" aria-label="Switch to dark mode" title="Switch to dark mode" type="button">
+        <svg viewBox="0 0 24 24" focusable="false" aria-hidden="true">
+          <use href="#icon-moon"></use>
+        </svg>
+      </button>
+    </div>
+  </header>
+
+  <main class="site-shell page-shell" id="content-root">
+    <section class="page-view" id="home" data-page="home" data-title="Urme Bose">
+      <div class="hero-block">
+        <aside class="hero-media">
+          <img
+            src="assets/profile.jpeg"
+            alt="Portrait of Urme Bose"
+            class="profile-photo"
+            loading="eager"
+            fetchpriority="high"
+            decoding="async"
+            width="2640"
+            height="3024"
+          >
+          <div class="profile-links" aria-label="Profile links">
+            <a href="https://github.com/urme-b" target="_blank" rel="noopener noreferrer" aria-label="GitHub profile" title="GitHub profile" class="plink plink--github">
+              <svg class="icon" viewBox="0 0 24 24" focusable="false">
+                <use href="#icon-github"></use>
+              </svg>
+            </a>
+            <a href="mailto:urmebose05@gmail.com" aria-label="Copy email address" title="Copy email address" class="plink plink--email">
+              <svg class="icon" viewBox="0 0 24 24" focusable="false">
+                <use href="#icon-email"></use>
+              </svg>
+            </a>
+            <a href="#home" aria-label="Back to top" title="Back to top" class="plink plink--home">
+              <svg class="icon" viewBox="0 0 24 24" focusable="false">
+                <use href="#icon-home"></use>
+              </svg>
+            </a>
+          </div>
+        </aside>
+
+        <div class="hero-copy">
+          <h1>Urme Bose</h1>
+          <p class="hero-role">Artificial Intelligence · Human-Centred Data · Digital Health</p>
+          <p class="hero-bio">
+            I develop machine-learning and data-driven systems for understanding complex human-centred data. My work
+            connects applied AI, behavioural science, and digital health, with a focus on building models that are
+            accurate, interpretable, and useful beyond controlled research settings.
+          </p>
+          <p class="hero-bio">
+            Computer Engineer and behavioural researcher with
+            <a href="https://www.cnrs.fr/en" target="_blank" rel="noopener noreferrer">CNRS</a> and
+            <a href="https://www.eacea.ec.europa.eu/scholarships/erasmus-mundus-catalogue_en" target="_blank" rel="noopener noreferrer">Erasmus Mundus</a>
+            training in multimodal sensing, longitudinal human behaviour data and predictive modelling.
+          </p>
+          <p class="hero-bio">
+            This background gives me a cross-disciplinary foundation in AI, statistical modelling, signal processing,
+            behavioural research, and human-centred technology.
+          </p>
+        </div>
+      </div>
+
+      <hr class="section-divider">
+
+      <section class="content-section">
+        <h2>Selected Projects</h2>
+
+        <article class="paper-entry">
+          <img src="assets/project-calmsense.png" alt="CalmSense — multimodal physiological signals from WESAD" class="paper-image" loading="lazy" decoding="async" width="2142" height="883">
+          <div class="paper-copy">
+            <p class="paper-title"><strong>CalmSense</strong> — Explainable multimodal stress detection from wearable physiology</p>
+            <p class="paper-summary">Wearable sensors can reveal a lot about stress — if the model is built right and actually explainable. I trained a cross-modal Transformer to learn joint representations across ECG, EDA, skin temperature and accelerometer streams on the WESAD benchmark, benchmarked against 1D-CNN, BiLSTM and Optuna-tuned gradient-boosting baselines over 60+ biomarkers. SHAP and LIME attributions make every prediction readable to a clinician, not just a model — and the system runs as a FastAPI real-time inference service.</p>
+            <p class="paper-tags">WESAD · Cross-modal Transformer · 1D-CNN · BiLSTM · SHAP · FastAPI</p>
+            <p class="paper-links"><a href="https://github.com/urme-b/CalmSense" target="_blank" rel="noopener noreferrer" class="code-link">Code</a></p>
+          </div>
+        </article>
+
+        <article class="paper-entry">
+          <img src="assets/project-pulseshift.svg" alt="PulseShift — climate risk decision engine" class="paper-image" loading="lazy" decoding="async" width="560" height="340">
+          <div class="paper-copy">
+            <p class="paper-title"><strong>PulseShift</strong> — Climate-aware decision support for outdoor activity planning</p>
+            <p class="paper-summary">Weather apps tell you conditions — they don't tell you what to do. PulseShift ingests NOAA hourly forecasts and EPA AirNow air quality data, scores how likely a session needs to be disrupted, and ranks specific adaptations: start earlier, shift the route, reduce intensity, move indoors. The retained-activity-minutes (RAM) metric gives a concrete, auditable measure of how much of the session was preserved — and the decision logic is fully inspectable, not a black box.</p>
+            <p class="paper-tags">NOAA · AirNow · Risk modelling · RAM metric · Node.js · PostgreSQL</p>
+            <p class="paper-links"><a href="https://github.com/urme-b/PulseShift" target="_blank" rel="noopener noreferrer" class="code-link">Code</a></p>
+          </div>
+        </article>
+
+        <article class="paper-entry">
+          <video class="paper-image paper-video" autoplay muted loop playsinline width="1280" height="720">
+            <source src="assets/project-novavision.mp4" type="video/mp4">
+            <img src="assets/project-novavision-fallback.png" alt="NovaVision — emotion to AI art">
+          </video>
+          <div class="paper-copy">
+            <p class="paper-title"><strong>NovaVision</strong> — Emotion-to-image generation via NLP and diffusion models</p>
+            <p class="paper-summary">Language carries emotion — and emotion can be visual. NovaVision detects emotional content from text in real time using a fine-tuned DistilRoBERTa model across 7 emotion classes with valence and arousal scores, then routes output through a smart prompt-engineering layer before generating 1024×1024 artwork with FLUX.1 diffusion models. The system distinguishes emotional inputs from descriptive ones and adapts generation accordingly — served through a Flask REST API with full download, seed control and generation history.</p>
+            <p class="paper-tags">DistilRoBERTa · FLUX.1 · HuggingFace · Prompt Engineering · Flask · NLP</p>
+            <p class="paper-links"><a href="https://github.com/urme-b/NovaVision" target="_blank" rel="noopener noreferrer" class="code-link">Code</a></p>
+          </div>
+        </article>
+
+        <article class="paper-entry">
+          <img src="assets/project-nexusrag.gif" alt="NexusRAG — self-correcting RAG demo" class="paper-image" loading="lazy" decoding="async" width="800" height="500">
+          <div class="paper-copy">
+            <p class="paper-title"><strong>NexusRAG</strong> — Self-correcting retrieval-augmented generation for scientific literature</p>
+            <p class="paper-summary">LLMs hallucinate — especially on scientific content where precision matters. NexusRAG builds a hybrid retrieval pipeline over uploaded research papers (PDF, DOCX, MD) using LanceDB vector embeddings alongside a BM25 keyword index, then passes retrieved passages to a local Ollama LLM. A verification loop checks each citation against the source: if a claim doesn't hold, the system reformulates, re-retrieves and tries again. Everything runs locally — no API keys, no data leaving the machine — with exact passage and page-number citations in every answer.</p>
+            <p class="paper-tags">RAG · LanceDB · BM25 · Ollama · Sentence Transformers · FastAPI · Local LLM</p>
+            <p class="paper-links"><a href="https://github.com/urme-b/NexusRAG" target="_blank" rel="noopener noreferrer" class="code-link">Code</a></p>
+          </div>
+        </article>
+
+        <article class="paper-entry">
+          <img src="assets/project-multimodal.jpg" alt="Multimodal-Multisensor — data collection session with synchronized sensors" class="paper-image" loading="lazy" decoding="async" width="1200" height="900">
+          <div class="paper-copy">
+            <p class="paper-title"><strong>Multimodal-Multisensor</strong> — Longitudinal trait-vs-state analysis of physiological response</p>
+            <p class="paper-summary">A core question in digital health: when someone's physiology shifts during a task, is that about them as a person or just about that moment? I ran a longitudinal study synchronizing eye-tracking, HRV, EDA and facial action units across three weekly sessions, then used PCA with K-Means clustering and cross-session correlation analysis to decompose variance. The result: physiological patterns are far more stable within a person than across people — which has real consequences for how personalized health models should be built.</p>
+            <p class="paper-tags">Multimodal · HRV · EDA · PCA · K-Means · Longitudinal</p>
+            <p class="paper-links"><a href="https://github.com/urme-b/Multimodal-Multisensor" target="_blank" rel="noopener noreferrer" class="code-link">Code</a></p>
+          </div>
+        </article>
+
+      </section>
+
+      <hr class="section-divider">
+
+      <section class="content-section service-section">
+        <h2>Academic Services</h2>
+        <ul class="service-list">
+          <li><strong>Conference Reviewer:</strong> CYPSY 2023, ICASSP 2026</li>
+          <li><strong>Journal Reviewer:</strong> IEEE</li>
+        </ul>
+      </section>
+
+    </section>
+
+    <section class="page-view" id="education" data-page="education" data-title="Urme Bose | Education" hidden>
+      <section class="page-title">
+        <h1>Education</h1>
+      </section>
+
+      <section class="record-list">
+        <article class="record-entry">
+          <div class="record-logo">
+            <img
+              src="assets/logo-upc-horizontal.png"
+              alt="Université Paris Cité logo"
+              loading="lazy"
+              decoding="async"
+              width="446"
+              height="170"
+            >
+          </div>
+          <div class="record-copy">
+            <h2 lang="fr">Université Paris Cité</h2>
+            <p class="record-role">M.Sc. in Cyberspace, Behavior and E-Therapy</p>
+            <ul>
+              <li>Fully funded by the European Commission</li>
+              <li>Degree: Computer Science, Psychology</li>
+              <li>Classification: <span lang="fr">Bien</span> | 120 ECTS</li>
+              <li>Supervised by <a href="https://centreborelli.ens-paris-saclay.fr/fr/annuaire-des-personnes/lise-haddouk" target="_blank" rel="noopener noreferrer">Dr. Lise Haddouk</a> and <a href="https://centreborelli.ens-paris-saclay.fr/fr/annuaire-des-personnes/pierre-paul-vidal" target="_blank" rel="noopener noreferrer">Dr. Pierre-Paul Vidal</a></li>
+              <li>Thesis: <a href="https://www.icdvrat.com/2024/ICDVRAT2024-Proceedings.pdf#page=172" target="_blank" rel="noopener noreferrer">Longitudinal Analysis of Neurophysiological Correlates of Anxiety During Psychometric Assessment</a></li>
+              <li>Lab: <a href="https://centreborelli.ens-paris-saclay.fr/en/welcome-centre-borelli" target="_blank" rel="noopener noreferrer">Centre Borelli, CNRS</a></li>
+            </ul>
+          </div>
+          <div class="record-meta">
+            <p>Paris, France</p>
+            <p>Sep 2022 – Sep 2024</p>
+          </div>
+        </article>
+
+        <article class="record-entry">
+          <div class="record-logo">
+            <img
+              src="assets/logo-ub.png"
+              alt="Universitat de Barcelona logo"
+              loading="lazy"
+              decoding="async"
+              width="984"
+              height="250"
+            >
+          </div>
+          <div class="record-copy">
+            <h2>University of Barcelona</h2>
+            <p class="record-role">M.Sc. in Cyberspace, Behavior and E-Therapy — Erasmus Mundus Joint Master</p>
+            <ul>
+              <li>Fully funded by the European Commission</li>
+              <li>Engaged with behavioural intervention design and digital behaviour research across European contexts</li>
+            </ul>
+          </div>
+          <div class="record-meta">
+            <p>Barcelona, Spain</p>
+            <p>Sep 2023 – Jan 2024</p>
+          </div>
+        </article>
+
+        <article class="record-entry">
+          <div class="record-logo">
+            <img
+              src="assets/logo-bup-official.svg"
+              alt="Bangladesh University of Professionals logo"
+              loading="lazy"
+              decoding="async"
+              width="1182"
+              height="1334"
+            >
+          </div>
+          <div class="record-copy">
+            <h2>Bangladesh University of Professionals</h2>
+            <p class="record-role">B.Sc. in Information &amp; Communication Engineering</p>
+            <ul>
+              <li>CGPA: 3.58/4.00 (80.7/100), First Class</li>
+              <li>Final 80 credits: 3.75/4.00 (87.0/100)</li>
+              <li>Major: Computer Science</li>
+              <li>Supervised by <a href="https://www.du.ac.bd/faculty/faculty_details/APE/1422" target="_blank" rel="noopener noreferrer">Dr. Md Junaebur Rashid</a></li>
+              <li>Thesis: <a href="https://github.com/urme-b/Antenna" target="_blank" rel="noopener noreferrer">Study of the Properties of Different Shaped Microstrip Patch Antennas (MPA) Operating at 2.45 GHz</a></li>
+              <li>Lab: <a href="https://du.ac.bd/index.php/reFDetails/dept/5/84" target="_blank" rel="noopener noreferrer">FAB LAB DU</a></li>
+            </ul>
+          </div>
+          <div class="record-meta">
+            <p>Dhaka, Bangladesh</p>
+            <p>Jan 2015 – Jan 2019</p>
+          </div>
+        </article>
+      </section>
+
+      <hr class="section-divider">
+
+      <section class="content-section skills-section">
+        <h2>Skills</h2>
+        <div class="skills-grid">
+          <div class="skill-row">
+            <span class="skill-label">Programming &amp; Tools</span>
+            <span class="skill-items">Python · R · C++ · JavaScript · MATLAB · LaTeX</span>
+          </div>
+          <div class="skill-row">
+            <span class="skill-label">Libraries &amp; Frameworks</span>
+            <span class="skill-items">NumPy · Pandas · Scikit-Learn · Keras · TensorFlow · PyTorch · Hugging Face · SciPy · MySQL</span>
+          </div>
+          <div class="skill-row">
+            <span class="skill-label">Languages</span>
+            <span class="skill-items">English (C1, Advanced) · German (A2, Beginner) · Bengali (Native)</span>
+          </div>
+        </div>
+      </section>
+
+      <hr class="section-divider">
+
+      <section class="content-section awards-section">
+        <h2>Awards &amp; Honors</h2>
+        <div class="awards-copy">
+          <p>Erasmus Mundus Joint Masters Scholarship, European Commission, 2022</p>
+          <p>Semi-Finalist, Crossroads Emerging Leaders Program, Harvard University, 2021</p>
+          <p>Outstanding Academic Performance, Faculty of Science and Technology, BUP 2018</p>
+        </div>
+      </section>
+
+    </section>
+
+    <section class="page-view" id="about" data-page="about" data-title="Urme Bose | About" hidden>
+      <section class="page-title">
+        <h1>About Me</h1>
+      </section>
+
+      <section class="content-section venn-section">
+        <div class="venn-pair">
+          <div class="venn-item">
+            <h2>Research Interests</h2>
+            <div class="venn-img">
+              <img
+                src="assets/research-interests.png"
+                alt="Venn diagram of Computational Neuroscience, Cognitive Science and Artificial Intelligence research interests"
+                loading="lazy"
+                decoding="async"
+                width="560"
+                height="560"
+              >
+            </div>
+          </div>
+          <div class="venn-item">
+            <h2>My Approach</h2>
+            <div class="venn-img">
+              <img
+                src="assets/venn-approach.png"
+                alt="Venn diagram: AI and Data Science, Behaviour Science, and Soft Skills converging on Data-Driven Insights That Understand Humans"
+                loading="lazy"
+                decoding="async"
+                width="1472"
+                height="1069"
+              >
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <hr class="section-divider">
+
+      <section class="content-section sdg-section">
+        <h2>Expertise related to UN Sustainable Development Goals</h2>
+        <div class="sdg-list">
+
+          <div class="sdg-item">
+            <div class="sdg-icon" style="background:#4C9F38" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <circle cx="12" cy="8" r="3"/>
+                <path d="M6 20v-1a6 6 0 0 1 12 0v1"/>
+                <polyline points="3,12 6,12 8,8 10,16 12,12 14,12"/>
+              </svg>
+            </div>
+            <div class="sdg-text">
+              <strong>SDG 3</strong>
+              <span>Good Health and Well-being</span>
+            </div>
+          </div>
+
+          <div class="sdg-item">
+            <div class="sdg-icon" style="background:#FD6925" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="white">
+                <rect x="3" y="13" width="4" height="8" rx="1"/>
+                <rect x="10" y="8" width="4" height="13" rx="1"/>
+                <rect x="17" y="4" width="4" height="17" rx="1"/>
+              </svg>
+            </div>
+            <div class="sdg-text">
+              <strong>SDG 9</strong>
+              <span>Industry, Innovation and Infrastructure</span>
+            </div>
+          </div>
+
+          <div class="sdg-item">
+            <div class="sdg-icon" style="background:#3F7E44" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="white">
+                <path d="M17 8C8 10 5.9 16.17 3.82 21.34L5.71 22l1-2.3A4.49 4.49 0 0 0 8 20C19 20 22 3 22 3c-1 2-8 2-13 2 0 0-1 0-2 1 0 0 6-1 10 3 0 0-2 0-3-1z"/>
+              </svg>
+            </div>
+            <div class="sdg-text">
+              <strong>SDG 13</strong>
+              <span>Climate Action</span>
+            </div>
+          </div>
+
+        </div>
+      </section>
+
+      <hr class="section-divider">
+
+      <section class="content-section hobbies-section">
+        <h2>Hobbies</h2>
+        <div class="hobby-grid">
+
+          <div class="hobby-card">
+            <div class="hobby-icon">
+              <svg viewBox="0 0 24 24" fill="currentColor"><path d="M19 22H5v-2h14v2M13 2h-2v2H9v2h2v1.07A7 7 0 0 0 5 14a7 7 0 0 0 7 7 7 7 0 0 0 7-7 7 7 0 0 0-4-6.27V6h2V4h-2V2m0 8.15A5 5 0 0 1 17 14a5 5 0 0 1-5 5 5 5 0 0 1-5-5 5 5 0 0 1 4-4.9V11h2v-0.85z"/></svg>
+            </div>
+            <h3>Chess</h3>
+            <p>A missing queen is not the end — my resilience can lead to real checkmate.</p>
+            <p class="hobby-fav"><strong>Favorites:</strong></p>
+            <ul>
+              <li>The Sicilian Defense</li>
+              <li>The Queen’s Gambit</li>
+              <li>The Opera Game Mate</li>
+            </ul>
+          </div>
+
+          <div class="hobby-card">
+            <div class="hobby-icon">
+              <svg viewBox="0 0 24 24" fill="currentColor"><path d="M6 2h12a2 2 0 0 1 2 2v16a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2zm0 2v16h12V4H6zm2 3h8v2H8V7zm0 4h8v2H8v-2zm0 4h5v2H8v-2z"/></svg>
+            </div>
+            <h3>Reading</h3>
+            <p>Philosophy, sci-fi, and literary novels fuel my curiosity.</p>
+            <p class="hobby-fav"><strong>Favorites:</strong></p>
+            <ul>
+              <li>Meditations (Aurelius)</li>
+              <li>Nexus (Harari)</li>
+              <li>The Singularity Is Nearer (Kurzweil)</li>
+            </ul>
+          </div>
+
+          <div class="hobby-card">
+            <div class="hobby-icon">
+              <svg viewBox="0 0 24 24" fill="currentColor"><path d="M17.9 17.39c-.26-.8-1-1.39-1.9-1.39h-1v-3a1 1 0 0 0-1-1H8v-2h2a1 1 0 0 0 1-1V7h2a2 2 0 0 0 2-2v-.41A9.98 9.98 0 0 1 22 12c0 2.17-.7 4.17-1.87 5.79l-2.23-.4M12 2a10 10 0 1 0 0 20A10 10 0 0 0 12 2m-1 17.93c-3.95-.49-7-3.85-7-7.93 0-.62.08-1.21.21-1.79L9 15v1a2 2 0 0 0 2 2v1.93z"/></svg>
+            </div>
+            <h3>Traveling</h3>
+            <p>Exploring cultures — from local street food to historic landmarks.</p>
+            <p class="hobby-fav"><strong>Favorites:</strong></p>
+            <ul>
+              <li>Paris</li>
+              <li>Barcelona</li>
+              <li>Prague</li>
+            </ul>
+          </div>
+
+          <div class="hobby-card">
+            <div class="hobby-icon">
+              <svg viewBox="0 0 24 24" fill="currentColor"><path d="M13.5 5.5a2 2 0 1 0 0-4 2 2 0 0 0 0 4M9.8 8.9L7 23h2.1l1.8-8 2.1 2v6h2v-7.5l-2.1-2 .6-3A7.3 7.3 0 0 0 18 13v-2a5.3 5.3 0 0 1-3.7-1.5L13 8a2 2 0 0 0-1.4-.6c-.4 0-.8.1-1.1.3L7 9.5V13h2V11l.8-.4z"/></svg>
+            </div>
+            <h3>Hiking</h3>
+            <p>Rugged trails clear my mind and spark fresh insights.</p>
+            <p class="hobby-fav"><strong>Favorites:</strong></p>
+            <ul>
+              <li>Lac Blanc, France</li>
+              <li>Montserrat, Spain</li>
+              <li>Sintra, Portugal</li>
+            </ul>
+          </div>
+
+        </div>
+      </section>
+
+    </section>
+  </main>
+
+  <footer class="site-shell page-footer">
+    <p>&copy; <span data-year></span> Urme. All rights reserved.</p>
+  </footer>
+
+  <script src="script.js" defer></script>
+</body>
+</html>
