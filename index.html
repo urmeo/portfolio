@@ -17,6 +17,7 @@
   <title>Urme Bose</title>
   <link rel="icon" href="assets/brand-mark.svg" type="image/svg+xml">
   <link rel="apple-touch-icon" href="assets/brand-mark.svg">
+  <link rel="preload" as="image" href="assets/profile.jpeg" fetchpriority="high">
   <link rel="stylesheet" href="main.css">
 </head>
 <body>
@@ -149,7 +150,7 @@
         <h2>Selected Projects</h2>
 
         <article class="paper-entry">
-          <img src="assets/project-calmsense.png" alt="CalmSense — multimodal physiological signals from WESAD" class="paper-image" loading="lazy" decoding="async" width="2142" height="883">
+          <img src="assets/project-calmsense.png" alt="CalmSense — multimodal physiological signals from WESAD" class="paper-image" loading="eager" fetchpriority="high" decoding="async" width="2142" height="883">
           <div class="paper-copy">
             <p class="paper-title"><strong>CalmSense</strong> — Explainable multimodal stress detection from wearable physiology</p>
             <p class="paper-summary">Wearable sensors can reveal a lot about stress — if the model is built right and actually explainable. I trained a cross-modal Transformer to learn joint representations across ECG, EDA, skin temperature and accelerometer streams on the WESAD benchmark, benchmarked against 1D-CNN, BiLSTM and Optuna-tuned gradient-boosting baselines over 60+ biomarkers. SHAP and LIME attributions make every prediction readable to a clinician, not just a model — and the system runs as a FastAPI real-time inference service.</p>
