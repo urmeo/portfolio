@@ -1,11 +1,3 @@
-# Portfolio v3
-
-Personal portfolio website. Live at [urme-b.github.io/portfolio](https://urme-b.github.io/portfolio/).
-
-## Stack
-
-Single-page static site — vanilla HTML, CSS, and JavaScript. No build step.
-
 ## Files
 
 - `index.html` — single-page entry, hash-based routing for Home / Education / About
