@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="color-scheme" content="light dark">
+  <meta name="robots" content="noindex">
+  <title>404 — Urme Bose</title>
+  <link rel="icon" href="/portfolio/assets/brand-mark.svg" type="image/svg+xml">
+  <link rel="apple-touch-icon" href="/portfolio/assets/brand-mark.svg">
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap');
+
+    :root {
+      --bg: #ffffff;
+      --ink: #1f1f1f;
+      --muted: #6e6e73;
+      --line: #e5e5ea;
+      --blue: #254f79;
+    }
+    @media (prefers-color-scheme: dark) {
+      :root {
+        --bg: #0f0f11;
+        --ink: #e8e8ed;
+        --muted: #a8a8b2;
+        --line: #2c2c2e;
+        --blue: #4a9eff;
+      }
+    }
+
+    * { box-sizing: border-box; }
+
+    html, body { height: 100%; }
+
+    body {
+      margin: 0;
+      background: var(--bg);
+      color: var(--ink);
+      font-family: 'Roboto', Arial, sans-serif;
+      font-weight: 400;
+      display: flex;
+      flex-direction: column;
+      min-height: 100vh;
+    }
+
+    .header {
+      display: flex;
+      align-items: center;
+      gap: 0.7rem;
+      padding: 1.2rem 2rem;
+      border-bottom: 1px solid var(--line);
+    }
+
+    .header img {
+      width: 36px;
+      height: 36px;
+    }
+
+    .header span {
+      font-size: 1.15rem;
+      color: var(--ink);
+    }
+
+    .main {
+      flex: 1;
+      display: grid;
+      place-items: center;
+      padding: 3rem 2rem;
+    }
+
+    .wrap {
+      max-width: 32rem;
+      text-align: center;
+    }
+
+    .code {
+      font-size: clamp(5rem, 14vw, 8.5rem);
+      font-weight: 700;
+      line-height: 1;
+      letter-spacing: -0.04em;
+      color: var(--blue);
+      margin: 0;
+    }
+
+    .title {
+      font-size: clamp(1.4rem, 2.4vw, 1.7rem);
+      font-weight: 700;
+      letter-spacing: -0.01em;
+      margin: 1.4rem 0 0.6rem;
+    }
+
+    .desc {
+      color: var(--muted);
+      font-size: 1.02rem;
+      line-height: 1.6;
+      margin: 0 0 2rem;
+    }
+
+    .links {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 0.5rem 0.4rem;
+    }
+
+    .links a {
+      display: inline-block;
+      padding: 0.55rem 1.1rem;
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      color: var(--ink);
+      text-decoration: none;
+      font-size: 0.95rem;
+      transition: border-color 0.2s ease, color 0.2s ease;
+    }
+
+    .links a.primary {
+      background: var(--blue);
+      border-color: var(--blue);
+      color: #fff;
+    }
+
+    .links a:hover {
+      border-color: var(--blue);
+      color: var(--blue);
+    }
+
+    .links a.primary:hover {
+      opacity: 0.88;
+      color: #fff;
+    }
+
+    .footer {
+      padding: 1.4rem 2rem;
+      border-top: 1px solid var(--line);
+      color: var(--muted);
+      font-size: 0.88rem;
+      text-align: center;
+    }
+
+    @media (max-width: 480px) {
+      .header { padding: 1rem 1.2rem; }
+      .footer { padding: 1.2rem; }
+    }
+  </style>
+</head>
+<body>
+  <header class="header">
+    <a href="/portfolio/" style="display:flex;align-items:center;gap:0.7rem;text-decoration:none;color:inherit;">
+      <img src="/portfolio/assets/brand-mark.svg" alt="">
+      <span>Urme Bose</span>
+    </a>
+  </header>
+
+  <main class="main">
+    <div class="wrap">
+      <p class="code">404</p>
+      <h1 class="title">This page doesn't exist</h1>
+      <p class="desc">The link may be broken, or the page may have been moved. Try one of these instead.</p>
+      <div class="links">
+        <a href="/portfolio/" class="primary">Home</a>
+        <a href="/portfolio/#education">Education</a>
+        <a href="/portfolio/#about">About</a>
+      </div>
+    </div>
+  </main>
+
+  <footer class="footer">
+    <p>&copy; <span id="year"></span> Urme Bose</p>
+  </footer>
+
+  <script>
+    document.getElementById('year').textContent = new Date().getFullYear();
+  </script>
+</body>
+</html>

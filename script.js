@@ -171,8 +171,9 @@ function initThemeToggle() {
     if (persist) localStorage.setItem("theme", dark ? "dark" : "light");
   }
 
-  // Light by default — only restore dark if user explicitly chose it
-  applyTheme(localStorage.getItem("theme") === "dark", false);
+  const stored = localStorage.getItem("theme");
+  const prefersDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
+  applyTheme(stored ? stored === "dark" : prefersDark, false);
 
   btn.addEventListener("click", () => {
     applyTheme(!document.body.classList.contains("dark-mode"), true);
