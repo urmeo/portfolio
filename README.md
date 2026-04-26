@@ -1,4 +1,4 @@
-# Urme Bose — Portfolio
+# Portfolio
 
 Personal portfolio website. Live at [urme-b.github.io/portfolio](https://urme-b.github.io/portfolio/).
 
@@ -13,14 +13,6 @@ Single-page static site — vanilla HTML, CSS, and JavaScript. No build step.
 - `script.js` — navigation, theme toggle, video lazy-pause, scroll-to-top
 - `assets/` — images, logos, and project media
 
-## Local preview
+## License
 
-Open `index.html` directly in a browser, or serve with any static server:
-
-```sh
-python3 -m http.server 8000
-```
-
-## Deployment
-
-Deployed via GitHub Pages from the `main` branch.
+[MIT](LICENSE)
