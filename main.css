@@ -386,6 +386,21 @@ h2 {
   border-radius: 6px;
 }
 
+.section-license {
+  font-size: 0.85rem;
+  color: #6a6a6a;
+  margin-top: -0.6rem;
+  margin-bottom: 2rem;
+}
+.section-license a {
+  color: var(--blue);
+  text-decoration: underline;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 2px;
+}
+body.dark-mode .section-license { color: #a8a8b2; }
+body.dark-mode .section-license a { color: #9bb8da; }
+
 .paper-video {
   display: block;
 }
