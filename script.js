@@ -166,7 +166,7 @@ function initCopyEmail() {
   const link = document.querySelector(".plink--email");
   if (!link) return;
 
-  const email = "urmebose05@gmail.com";
+  const email = "urme.bose1@gmail.com";
   const originalLabel = link.getAttribute("aria-label");
   const originalTitle = link.title;
 
