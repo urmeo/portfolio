@@ -137,25 +137,6 @@ function initYear() {
   });
 }
 
-/* ---- video: pause when offscreen ---- */
-function initVideoObserver() {
-  const videos = document.querySelectorAll("video[autoplay]");
-  if (!videos.length) return;
-
-  const observer = new IntersectionObserver(entries => {
-    entries.forEach(entry => {
-      const video = entry.target;
-      if (entry.isIntersecting) {
-        video.play().catch(() => {});
-      } else {
-        video.pause();
-      }
-    });
-  }, { threshold: 0.25 });
-
-  videos.forEach(v => observer.observe(v));
-}
-
 /* ---- dark mode toggle ---- */
 function initThemeToggle() {
   const btn = document.querySelector(".theme-toggle");
@@ -229,7 +210,6 @@ initThemeToggle();
 initNavigation();
 initHeader();
 initYear();
-initVideoObserver();
 initScrollToTop();
 initCopyEmail();
 syncPage({ scrollToTop: true });
