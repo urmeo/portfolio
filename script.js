@@ -161,32 +161,6 @@ function initThemeToggle() {
   });
 }
 
-/* ---- copy email ---- */
-function initCopyEmail() {
-  const link = document.querySelector(".plink--email");
-  if (!link) return;
-
-  const email = "urme.bose1@gmail.com";
-  const originalLabel = link.getAttribute("aria-label");
-  const originalTitle = link.title;
-
-  link.addEventListener("click", e => {
-    e.preventDefault();
-    navigator.clipboard.writeText(email).then(() => {
-      link.setAttribute("aria-label", "Copied!");
-      link.title = "Copied!";
-      link.classList.add("plink--copied");
-      setTimeout(() => {
-        link.setAttribute("aria-label", originalLabel);
-        link.title = originalTitle;
-        link.classList.remove("plink--copied");
-      }, 2200);
-    }).catch(() => {
-      window.location.href = `mailto:${email}`;
-    });
-  });
-}
-
 /* ---- scroll-to-top button ---- */
 function initScrollToTop() {
   const btn = document.createElement("button");
@@ -211,5 +185,4 @@ initNavigation();
 initHeader();
 initYear();
 initScrollToTop();
-initCopyEmail();
 syncPage({ scrollToTop: true });
