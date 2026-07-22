@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://urme-b.github.io/portfolio/sitemap.xml
+Sitemap: https://urmeo.github.io/portfolio/sitemap.xml
