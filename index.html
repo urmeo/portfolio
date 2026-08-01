@@ -21,6 +21,17 @@
   <link rel="icon" href="assets/brand-mark.svg" type="image/svg+xml">
   <link rel="apple-touch-icon" href="assets/brand-mark.svg">
   <link rel="preload" as="image" href="assets/profile.jpeg" fetchpriority="high">
+  <script>
+    // Resolve the theme before the stylesheet loads so dark-mode visitors never get a white first paint.
+    (function () {
+      var stored = null;
+      try { stored = localStorage.getItem("theme"); } catch (e) { /* storage blocked */ }
+      var dark = stored === "dark" ||
+        (stored !== "light" && window.matchMedia("(prefers-color-scheme: dark)").matches);
+      if (dark) document.documentElement.classList.add("dark-mode");
+      document.documentElement.style.colorScheme = dark ? "dark" : "light";
+    })();
+  </script>
   <link rel="stylesheet" href="main.css">
 </head>
 <body>
