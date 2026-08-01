@@ -137,28 +137,53 @@ function initYear() {
   });
 }
 
-/* ---- dark mode toggle ---- */
+/* ---- dark mode toggle ----
+   The class already sits on <html> from the inline script in index.html <head>;
+   this only keeps it in sync with the button and the OS. */
+const THEME_KEY = "theme";
+const darkQuery = window.matchMedia("(prefers-color-scheme: dark)");
+
+function readStoredTheme() {
+  try {
+    const value = localStorage.getItem(THEME_KEY);
+    return value === "dark" || value === "light" ? value : null;
+  } catch {
+    return null; // storage blocked — treat as "no stored choice"
+  }
+}
+
 function initThemeToggle() {
   const btn = document.querySelector(".theme-toggle");
-  if (!btn) return;
 
   function applyTheme(dark, persist) {
-    document.body.classList.toggle("dark-mode", dark);
+    document.documentElement.classList.toggle("dark-mode", dark);
     document.documentElement.style.colorScheme = dark ? "dark" : "light";
-    btn.setAttribute("aria-label", dark ? "Switch to light mode" : "Switch to dark mode");
-    btn.title = dark ? "Switch to light mode" : "Switch to dark mode";
-    const use = btn.querySelector("use");
-    if (use) use.setAttribute("href", dark ? "#icon-sun" : "#icon-moon");
-    if (persist) localStorage.setItem("theme", dark ? "dark" : "light");
+    if (btn) {
+      btn.setAttribute("aria-label", dark ? "Switch to light mode" : "Switch to dark mode");
+      btn.title = dark ? "Switch to light mode" : "Switch to dark mode";
+      const use = btn.querySelector("use");
+      if (use) use.setAttribute("href", dark ? "#icon-sun" : "#icon-moon");
+    }
+    if (persist) {
+      try {
+        localStorage.setItem(THEME_KEY, dark ? "dark" : "light");
+      } catch { /* storage blocked — the choice still applies to this page */ }
+    }
   }
 
-  const stored = localStorage.getItem("theme");
-  const prefersDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
-  applyTheme(stored ? stored === "dark" : prefersDark, false);
+  const stored = readStoredTheme();
+  applyTheme(stored ? stored === "dark" : darkQuery.matches, false);
 
-  btn.addEventListener("click", () => {
-    applyTheme(!document.body.classList.contains("dark-mode"), true);
+  btn?.addEventListener("click", () => {
+    applyTheme(!document.documentElement.classList.contains("dark-mode"), true);
   });
+
+  // no explicit choice stored? follow the OS while the page is open
+  if (typeof darkQuery.addEventListener === "function") {
+    darkQuery.addEventListener("change", e => {
+      if (!readStoredTheme()) applyTheme(e.matches, false);
+    });
+  }
 }
 
 /* ---- scroll-to-top button ---- */
