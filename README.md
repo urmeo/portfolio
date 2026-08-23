@@ -1,3 +1,9 @@
+# Portfolio
+
+Personal site of Urme Bose. Plain HTML, CSS, and JavaScript, hash-routed, with light and dark themes.
+
+**[Live site](https://urmeo.github.io/portfolio/)**
+
 ## Files
 
 - `index.html` — single-page entry, hash-based routing for Home / Education / About
