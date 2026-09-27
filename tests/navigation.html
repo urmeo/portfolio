@@ -1,0 +1,91 @@
+<!doctype html>
+<html lang="en">
+<meta charset="utf-8">
+<title>Navigation tests</title>
+<h1>Navigation tests</h1>
+<p id="results" role="status">Running…</p>
+<iframe title="Portfolio under test" src="../index.html" width="390" height="600"></iframe>
+<script>
+const frame = document.querySelector("iframe");
+const results = document.querySelector("#results");
+const failures = [];
+let passed = 0;
+const wait = ms => new Promise(resolve => setTimeout(resolve, ms));
+function assert(condition, message) {
+  if (condition) passed++;
+  else failures.push(message);
+}
+
+frame.addEventListener("load", async () => {
+  try {
+    const win = frame.contentWindow;
+    const doc = frame.contentDocument;
+    const visiblePages = () => [...doc.querySelectorAll(".page-view")].filter(v => !v.hidden);
+    const navigate = page => {
+      win.location.hash = page;
+      win.syncPage({ scrollToTop: true });
+    };
+
+    navigate("education");
+    navigate("home");
+    await wait(400);
+    assert(visiblePages().length === 1 && visiblePages()[0].dataset.page === "home",
+      "Returning home during a transition must cancel the pending destination");
+    assert(win.getComputedStyle(doc.querySelector('[data-page="home"]')).opacity === "1",
+      "Cancelling a transition must restore the current page's opacity");
+    assert([...doc.querySelectorAll('[aria-current="page"]')].every(a => a.dataset.pageLink === "home"),
+      "The active navigation link must match the visible page");
+
+    navigate("education");
+    navigate("about");
+    await wait(400);
+    assert(visiblePages().length === 1 && visiblePages()[0].dataset.page === "about",
+      "Rapid navigation must show only the final destination");
+    assert(doc.activeElement === visiblePages()[0].querySelector("h1, h2"),
+      "Navigation must focus the destination heading");
+
+    doc.querySelector(".skip-link").click();
+    await wait(400);
+    assert(visiblePages()[0].dataset.page === "about" && win.location.hash === "#about",
+      "Skipping navigation must preserve the current page");
+    assert(doc.activeElement === doc.querySelector("#content-root"),
+      "Skipping navigation must focus the main content");
+
+    const toggle = doc.querySelector(".nav-toggle");
+    toggle.click();
+    const link = doc.querySelector(".nav-list a");
+    link.focus();
+    link.dispatchEvent(new win.KeyboardEvent("keydown", { key: "Escape", bubbles: true }));
+    assert(toggle.getAttribute("aria-expanded") === "false", "Escape must close mobile navigation");
+    assert(doc.activeElement === toggle, "Escape must return focus to the navigation toggle");
+
+    win.scrollTo({ top: 0, behavior: "instant" });
+    await wait(400);
+    const backToTop = doc.querySelector(".scroll-top");
+    backToTop.focus();
+    assert(doc.activeElement !== backToTop, "The invisible back-to-top button must not receive focus");
+    win.scrollTo({ top: 700, behavior: "instant" });
+    await wait(400);
+    backToTop.focus();
+    assert(doc.activeElement === backToTop, "The visible back-to-top button must receive focus");
+
+    win.scrollTo = options => {
+      assert(options.behavior === (win.matchMedia("(prefers-reduced-motion: reduce)").matches ? "auto" : "smooth"),
+        "Back-to-top scrolling must respect the reduced-motion preference");
+    };
+    backToTop.click();
+  } catch (error) {
+    failures.push(error.message);
+  }
+  results.textContent = `${passed} passed, ${failures.length} failed`;
+  const list = document.createElement("ul");
+  failures.forEach(message => {
+    const item = document.createElement("li");
+    item.textContent = message;
+    list.appendChild(item);
+  });
+  document.body.appendChild(list);
+  document.documentElement.dataset.failed = String(failures.length);
+});
+</script>
+</html>

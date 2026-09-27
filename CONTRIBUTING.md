@@ -14,6 +14,9 @@ python3 -m http.server 8000
 
 Then visit http://localhost:8000.
 
+Open http://localhost:8000/tests/navigation.html to run the navigation and keyboard
+regressions. Run it with both normal and reduced motion enabled.
+
 ## Before opening a pull request
 
 - Keep it to plain HTML, CSS, and JavaScript. No frameworks, no bundler.

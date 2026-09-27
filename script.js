@@ -34,6 +34,15 @@ function initNavigation() {
 
   pageLinks.forEach(link => link.addEventListener("click", closeNav));
 
+  document.querySelector(".skip-link")?.addEventListener("click", e => {
+    const content = document.querySelector("#content-root");
+    if (!content) return;
+    e.preventDefault();
+    closeNav();
+    content.focus();
+    content.scrollIntoView();
+  });
+
   document.addEventListener("click", e => {
     if (isNavOpen() && e.target instanceof Node && !e.target.closest(".site-header")) {
       closeNav();
@@ -41,7 +50,10 @@ function initNavigation() {
   });
 
   document.addEventListener("keydown", e => {
-    if (e.key === "Escape") closeNav();
+    if (e.key === "Escape" && isNavOpen()) {
+      closeNav();
+      navToggle.focus();
+    }
   });
 
   window.addEventListener("resize", () => {
@@ -66,6 +78,12 @@ function setActivePage(page, { scrollToTop = false } = {}) {
 
   const outgoing = [...pageMap.values()].find(v => !v.hidden);
 
+  if (transitionTimer) {
+    clearTimeout(transitionTimer);
+    transitionTimer = null;
+  }
+  pageMap.forEach(v => v.classList.remove("page-out"));
+
   pageLinks.forEach(link => {
     if (link.dataset.pageLink === page) {
       link.setAttribute("aria-current", "page");
@@ -77,12 +95,8 @@ function setActivePage(page, { scrollToTop = false } = {}) {
 
   if (!outgoing || outgoing === incoming) {
     pageMap.forEach((v, name) => { v.hidden = name !== page; });
+    if (scrollToTop) window.scrollTo({ top: 0, behavior: "auto" });
     return;
-  }
-
-  if (transitionTimer) {
-    clearTimeout(transitionTimer);
-    transitionTimer = null;
   }
 
   outgoing.classList.add("page-out");
@@ -198,7 +212,7 @@ function initScrollToTop() {
     btn.classList.toggle("scroll-top--visible", window.scrollY > 500);
   }, { passive: true });
 
-  btn.addEventListener("click", () => window.scrollTo({ top: 0, behavior: "smooth" }));
+  btn.addEventListener("click", () => window.scrollTo({ top: 0, behavior: reducedMotion ? "auto" : "smooth" }));
 }
 
 /* ---- boot ---- */

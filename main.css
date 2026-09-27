@@ -1035,6 +1035,7 @@ a {
   justify-content: center;
   z-index: 50;
   opacity: 0;
+  visibility: hidden;
   transform: translateY(10px) scale(0.9);
   pointer-events: none;
   transition: opacity 0.28s ease, transform 0.28s ease, background 0.2s ease;
@@ -1048,6 +1049,7 @@ a {
 }
 .scroll-top--visible {
   opacity: 1;
+  visibility: visible;
   transform: none;
   pointer-events: auto;
 }
