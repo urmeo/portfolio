@@ -1,16 +1,26 @@
 # Portfolio
 
-Personal site of Urme Bose. Plain HTML, CSS, and JavaScript, hash-routed, with light and dark themes.
+Urme Bose's projects, education and research interests.
+
+**Research · Projects · Accessibility · Static site**
 
 **[Live site](https://urmeo.github.io/portfolio/)**
 
-## Files
+`#home / #education / #about → one visible section`
 
-- `index.html` — single-page entry, hash-based routing for Home / Education / About
-- `main.css` — all styles, including light + dark themes
-- `script.js` — navigation, theme toggle, scroll-to-top
-- `assets/` — images, logos, and project media
+| Layer | Files / tools |
+| --- | --- |
+| Content | `index.html`, `assets/`, `404.html` |
+| Style | `main.css`, system fonts, light/dark themes |
+| Navigation | `script.js`, hash routes, keyboard controls |
+| Hosting | GitHub Pages; no build step |
+
+From this folder, run `python3 -m http.server 8000`.
+
+[Local site](http://localhost:8000/) · [Browser checks](http://localhost:8000/tests/navigation.html)
+
+[Contributing and subpath preview](CONTRIBUTING.md) · [Privacy and reporting](SECURITY.md)
 
 ## License
 
-[MIT](LICENSE)
+Code: [MIT](LICENSE). Project media and institution logos retain their source rights.

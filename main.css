@@ -1,11 +1,9 @@
-@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap');
-
 :root {
   --page-bg: #fff;
   --ink: #1f1f1f;
   --blue: #254f79;
   --line: #d7d7d7;
-  --font-main: 'Roboto', Arial, sans-serif;
+  --font-main: Arial, sans-serif;
   --page-width: 1260px;
   --shell-gutter: 36px;
   --brand-mark-size: 44px;
@@ -15,7 +13,6 @@
   --paper-media-width: 320px;
   --record-logo-width: 160px;
   --record-meta-width: 160px;
-  --profile-icon-size: 2rem;
   --text-body: 0.91rem;
   --text-body-large: 0.95rem;
   --text-meta: 1rem;
@@ -35,7 +32,7 @@
   --surface-border: #efefef;
   --overlay-border: rgba(0, 0, 0, 0.08);
   --header-transition: background-color 180ms ease, border-color 180ms ease, box-shadow 180ms ease;
-  --focus-color: rgba(37, 79, 121, 0.6);
+  --focus-color: #254f79;
 }
 
 /* Base */
@@ -114,8 +111,8 @@ h2 {
   left: 1rem;
   z-index: 60;
   padding: 0.7rem 1rem;
-  background: #fff;
-  border: 1px solid rgba(0, 0, 0, 0.12);
+  background: var(--page-bg);
+  border: 1px solid var(--line);
   color: var(--ink);
   transform: translateY(-220%);
   transition: transform 120ms ease;
@@ -123,6 +120,10 @@ h2 {
 
 .skip-link:focus-visible {
   transform: translateY(0);
+}
+
+#content-root {
+  scroll-margin-top: calc(var(--header-height) + 1rem);
 }
 
 .icon {
@@ -184,8 +185,12 @@ h2 {
   color: #ffffff;
 }
 
-.site-header.is-scrolled .search-mark {
-  color: #ffffff;
+.site-header.is-scrolled .brand-mark {
+  filter: brightness(0) invert(1);
+}
+
+.site-header.is-scrolled :where(a, button):focus-visible {
+  outline-color: #93c5fd;
 }
 
 .site-header.is-scrolled .nav-toggle {
@@ -252,17 +257,6 @@ h2 {
   font-weight: 700;
 }
 
-.search-mark {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  width: 1.3rem;
-  height: 1.3rem;
-  margin-left: 1rem;
-  color: var(--ink);
-}
-
-
 /* Home */
 
 .hero-block {
@@ -307,13 +301,7 @@ h2 {
   transform: translateY(-1px);
   text-decoration: none;
 }
-.plink--copied {
-  color: #22c55e !important;
-  transform: scale(1.15);
-}
-
 .plink--github { color: #1a1a1a; }
-.plink--email  { color: #c0392b; }
 .plink--home   { color: #5b4fcf; }
 
 .hero-copy {
@@ -353,10 +341,6 @@ h2 {
   font-weight: 700;
 }
 
-.compact-section {
-  padding-bottom: 0;
-}
-
 .page-title {
   padding: 2.2rem 0 2.7rem;
   text-align: center;
@@ -384,22 +368,23 @@ h2 {
 .paper-image {
   width: 100%;
   height: auto;
+  aspect-ratio: 16 / 9;
+  object-fit: contain;
+  background: #f5f5f7;
   border-radius: 6px;
 }
+
+.paper-image-link { display: block; }
 
 .paper-copy {
   max-width: 52rem;
   padding-top: 0.2rem;
 }
 
-.paper-authors,
 .paper-title,
-.paper-venue,
 .paper-summary,
 .paper-tags,
-.paper-links,
-.project-title,
-.project-summary {
+.paper-links {
   font-size: var(--text-body-large);
   line-height: 1.45;
 }
@@ -417,16 +402,23 @@ h2 {
   line-height: var(--line-relaxed);
 }
 
+.project-facts {
+  margin: 0 0 0.8rem;
+  padding-left: 1.2rem;
+  overflow-wrap: anywhere;
+}
+
+.project-facts li {
+  margin-bottom: 0.3rem;
+  font-size: var(--text-body-large);
+  line-height: 1.45;
+}
+
 .paper-tags {
   margin-bottom: 0.55rem;
   color: #5a5a5a;
   font-size: var(--text-body);
   letter-spacing: 0.01em;
-}
-
-.paper-venue {
-  margin-bottom: 1rem;
-  font-style: italic;
 }
 
 .paper-links a {
@@ -458,7 +450,7 @@ h2 {
   color: #444;
 }
 
-/* venn diagrams — side by side, equal size */
+/* Research diagrams */
 .venn-pair {
   display: grid;
   grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
@@ -470,12 +462,6 @@ h2 {
 }
 .venn-item h2 {
   margin-bottom: 1.4rem;
-}
-.venn-desc {
-  font-size: var(--text-body);
-  color: #5a5a5a;
-  line-height: var(--line-relaxed);
-  margin-bottom: 1rem;
 }
 .venn-img {
   overflow: hidden;
@@ -634,17 +620,6 @@ h2 {
   font-size: var(--text-body);
   color: var(--ink);
   opacity: 0.7;
-}
-
-/* Projects */
-
-.project-entry {
-  max-width: 54rem;
-  margin-bottom: 1.4rem;
-}
-
-.project-title {
-  margin-bottom: 0.2rem;
 }
 
 /* Records */
@@ -817,10 +792,6 @@ h2 {
     padding: 0.65rem 0.35rem;
   }
 
-  .search-mark {
-    display: none;
-  }
-
   .page-shell {
     padding-top: 1rem;
   }
@@ -912,7 +883,7 @@ a {
   transition: color 0.18s ease, opacity 0.18s ease;
 }
 
-/* page transitions — subtle */
+/* Page transitions */
 @keyframes page-out {
   to { opacity: 0; }
 }
@@ -928,7 +899,7 @@ a {
   animation: page-in 0.18s ease forwards;
 }
 
-/* paper entry image — subtle hover */
+/* Project images */
 .paper-image {
   overflow: hidden;
 }
@@ -952,7 +923,7 @@ a {
   text-decoration-thickness: 1px;
 }
 
-/* nav active indicator — animated underline on desktop */
+/* Desktop navigation indicator */
 .nav-list a {
   position: relative;
 }
@@ -979,7 +950,7 @@ a {
   background: rgba(255, 255, 255, 0.75);
 }
 
-/* nav indicator — left bar on mobile */
+/* Mobile navigation indicator */
 @media (max-width: 760px) {
   .nav-list a::after {
     display: none;
@@ -1035,6 +1006,7 @@ a {
   justify-content: center;
   z-index: 50;
   opacity: 0;
+  visibility: hidden;
   transform: translateY(10px) scale(0.9);
   pointer-events: none;
   transition: opacity 0.28s ease, transform 0.28s ease, background 0.2s ease;
@@ -1048,6 +1020,7 @@ a {
 }
 .scroll-top--visible {
   opacity: 1;
+  visibility: visible;
   transform: none;
   pointer-events: auto;
 }
@@ -1119,7 +1092,7 @@ body,
   transition-timing-function: ease;
 }
 
-/* dark mode — class set on <html> before first paint (inline script in <head>), light is default */
+/* The head script sets the theme before paint. */
 :root.dark-mode {
   color-scheme: dark;
   --page-bg: #0f0f11;
@@ -1130,7 +1103,7 @@ body,
   --overlay-border: rgba(255, 255, 255, 0.08);
   --header-shadow: 0 10px 26px rgba(0, 0, 0, 0.55);
   --nav-shadow: 0 10px 28px rgba(0, 0, 0, 0.65);
-  --focus-color: rgba(74, 158, 255, 0.6);
+  --focus-color: #4a9eff;
 }
 
 :root.dark-mode .site-header {
@@ -1167,16 +1140,16 @@ body,
 
 :root.dark-mode .plink          { color: #b8b8c2; }
 :root.dark-mode .plink--github  { color: #d0d0d8; }
-:root.dark-mode .plink--email   { color: #ff7b7b; }
 :root.dark-mode .plink--home    { color: #a48bef; }
 
-:root.dark-mode .venn-desc { color: #9090a0; }
 :root.dark-mode .venn-img {
   opacity: 0.88;
 }
 
 :root.dark-mode .code-link { border-color: rgba(74, 158, 255, 0.45); }
 :root.dark-mode .code-link:hover { background: #4a9eff; color: #0f0f11; border-color: #4a9eff; }
+:root.dark-mode .scroll-top { color: #0f0f11; }
+:root.dark-mode .scroll-top:hover { background: #82bcff; }
 
 @media (max-width: 760px) {
   :root.dark-mode .nav-list {
@@ -1192,34 +1165,66 @@ body,
 
 /* print */
 @media print {
+  :root,
+  :root.dark-mode {
+    color-scheme: light !important;
+    --page-bg: #fff;
+    --ink: #000;
+    --blue: #254f79;
+  }
+
+  body,
+  body * {
+    color: #000 !important;
+    background: transparent !important;
+    box-shadow: none !important;
+    text-shadow: none !important;
+    animation: none !important;
+    transition: none !important;
+  }
+
   .site-header,
   .scroll-top,
   .skip-link,
   .theme-toggle { display: none !important; }
 
-  .page-view[hidden] { display: block !important; }
+  .page-view,
+  .page-view[hidden] {
+    display: block !important;
+    opacity: 1 !important;
+    transform: none !important;
+    pointer-events: auto !important;
+  }
 
   body {
-    background: #fff;
-    color: #000;
+    background: #fff !important;
     font-size: 10.5pt;
   }
 
   h1, h2 { color: #000 !important; break-after: avoid; }
 
-  a { color: #254f79; text-decoration: underline; }
+  a,
+  a * { color: #254f79 !important; text-decoration: underline; overflow-wrap: anywhere; }
 
-  a[href]::after { content: ' (' attr(href) ')'; font-size: 0.78em; color: #555; }
+  a[href]::after { content: ' (' attr(href) ')'; font-size: 0.78em; color: #000 !important; }
   a[href^="#"]::after,
   a[href^="mailto:"]::after,
   .code-link::after,
+  .paper-image-link::after,
   .plink::after { content: none; }
 
   .paper-entry,
   .record-entry,
   .hobby-card { break-inside: avoid; }
 
-  .hobby-card { background: none; box-shadow: none; border: 1px solid #ccc; }
+  .hobby-card { border: 1px solid #ccc; }
+  .record-logo img { padding: 0 !important; }
+  .venn-img { opacity: 1 !important; }
+  .profile-photo { transform: none !important; }
+  .sdg-icon [stroke="#fff"],
+  .sdg-icon [stroke="white"] { stroke: #000 !important; }
+  .sdg-icon [fill="#fff"],
+  .sdg-icon [fill="white"] { fill: #000 !important; }
 
   .page-view { break-before: page; }
   .page-view:first-of-type { break-before: auto; }
@@ -1238,4 +1243,3 @@ body,
     transition-duration: 0.01ms !important;
   }
 }
-
