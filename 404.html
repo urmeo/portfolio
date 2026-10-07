@@ -5,27 +5,48 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="color-scheme" content="light dark">
   <meta name="robots" content="noindex">
-  <title>404 — Urme Bose</title>
+  <title>404 | Urme Bose</title>
   <link rel="icon" href="/portfolio/assets/brand-mark.svg" type="image/svg+xml">
   <link rel="apple-touch-icon" href="/portfolio/assets/brand-mark.svg">
+  <script>
+    (function () {
+      var query = window.matchMedia("(prefers-color-scheme: dark)");
+      var choice = null;
+      try {
+        var stored = localStorage.getItem("theme");
+        if (stored === "dark" || stored === "light") choice = stored;
+      } catch (e) { /* Storage can be blocked. */ }
+      function apply() {
+        var dark = choice ? choice === "dark" : query.matches;
+        document.documentElement.classList.toggle("dark-mode", dark);
+        document.documentElement.style.colorScheme = dark ? "dark" : "light";
+      }
+      apply();
+      if (typeof query.addEventListener === "function") query.addEventListener("change", apply);
+      window.addEventListener("storage", function (e) {
+        if (e.key !== "theme" && e.key !== null) return;
+        try { if (e.storageArea && e.storageArea !== localStorage) return; } catch (error) { return; }
+        choice = e.newValue === "dark" || e.newValue === "light" ? e.newValue : null;
+        apply();
+      });
+    })();
+  </script>
   <style>
-    @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap');
-
     :root {
       --bg: #ffffff;
       --ink: #1f1f1f;
       --muted: #6e6e73;
       --line: #e5e5ea;
       --blue: #254f79;
+      --button-ink: #fff;
     }
-    @media (prefers-color-scheme: dark) {
-      :root {
-        --bg: #0f0f11;
-        --ink: #e8e8ed;
-        --muted: #a8a8b2;
-        --line: #2c2c2e;
-        --blue: #4a9eff;
-      }
+    :root.dark-mode {
+      --bg: #0f0f11;
+      --ink: #e8e8ed;
+      --muted: #a8a8b2;
+      --line: #2c2c2e;
+      --blue: #4a9eff;
+      --button-ink: #0f0f11;
     }
 
     * { box-sizing: border-box; }
@@ -36,7 +57,7 @@
       margin: 0;
       background: var(--bg);
       color: var(--ink);
-      font-family: 'Roboto', Arial, sans-serif;
+      font-family: Arial, sans-serif;
       font-weight: 400;
       display: flex;
       flex-direction: column;
@@ -55,6 +76,10 @@
       width: 36px;
       height: 36px;
     }
+
+    :root.dark-mode .header img { filter: brightness(0) invert(1); }
+
+    a:focus-visible { outline: 3px solid var(--blue); outline-offset: 4px; }
 
     .header span {
       font-size: 1.15rem;
@@ -117,7 +142,7 @@
     .links a.primary {
       background: var(--blue);
       border-color: var(--blue);
-      color: #fff;
+      color: var(--button-ink);
     }
 
     .links a:hover {
@@ -127,7 +152,7 @@
 
     .links a.primary:hover {
       opacity: 0.88;
-      color: #fff;
+      color: var(--button-ink);
     }
 
     .footer {
@@ -141,6 +166,10 @@
     @media (max-width: 480px) {
       .header { padding: 1rem 1.2rem; }
       .footer { padding: 1.2rem; }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      * { transition: none !important; }
     }
   </style>
 </head>
@@ -156,7 +185,7 @@
     <div class="wrap">
       <p class="code">404</p>
       <h1 class="title">This page doesn't exist</h1>
-      <p class="desc">The link may be broken, or the page may have been moved. Try one of these instead.</p>
+      <p class="desc">The link is missing or has moved. Choose a page below.</p>
       <div class="links">
         <a href="/portfolio/" class="primary">Home</a>
         <a href="/portfolio/#education">Education</a>

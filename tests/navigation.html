@@ -1,0 +1,316 @@
+<!doctype html>
+<html lang="en">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Navigation tests</title>
+<h1>Navigation tests</h1>
+<p id="results" role="status">Running…</p>
+<iframe title="Portfolio under test" src="../index.html" width="390" height="600"></iframe>
+<script>
+const frame = document.querySelector("iframe");
+const results = document.querySelector("#results");
+const failures = [];
+let passed = 0;
+const wait = ms => new Promise(resolve => setTimeout(resolve, ms));
+function assert(condition, message) {
+  if (condition) passed++;
+  else failures.push(message);
+}
+
+function contrast(first, second) {
+  const luminance = color => {
+    const channels = color.match(/[\d.]+/g).slice(0, 3).map(value => {
+      const channel = Number(value) / 255;
+      return channel <= 0.04045 ? channel / 12.92 : ((channel + 0.055) / 1.055) ** 2.4;
+    });
+    return channels[0] * 0.2126 + channels[1] * 0.7152 + channels[2] * 0.0722;
+  };
+  const values = [luminance(first), luminance(second)].sort((a, b) => b - a);
+  return (values[0] + 0.05) / (values[1] + 0.05);
+}
+
+const probes = [];
+async function loadProbe(file, options = {}) {
+  const url = new URL(file, location.href);
+  const response = await fetch(url);
+  if (!response.ok) throw new Error(`Cannot load ${file}: ${response.status}`);
+  const html = new DOMParser().parseFromString(await response.text(), "text/html");
+  const base = html.createElement("base");
+  base.href = new URL(".", url).href;
+  const bootstrap = html.createElement("script");
+  bootstrap.textContent = `(() => {
+    const options = ${JSON.stringify(options)};
+    window.fixtureErrors = [];
+    window.addEventListener("error", event => window.fixtureErrors.push(event.message));
+    window.addEventListener("unhandledrejection", event => window.fixtureErrors.push(String(event.reason)));
+    // Keep srcdoc hash updates on its own URL rather than the asset base URL.
+    const replaceState = history.replaceState.bind(history);
+    history.replaceState = (state, title, url) => replaceState(state, title,
+      typeof url === "string" && url.startsWith("#") ? new URL(url, location.href).href : url);
+    const storage = {
+      choice: options.theme ?? null,
+      getItem() { if (options.blockStorage) throw new Error("Storage blocked"); return this.choice; },
+      setItem(key, value) { if (options.blockStorage) throw new Error("Storage blocked"); this.choice = value; }
+    };
+    Object.defineProperty(window, "localStorage", { value: storage, configurable: true });
+    const nativeMatch = window.matchMedia.bind(window);
+    const makeQuery = (media, initial) => {
+      const query = new EventTarget();
+      query.media = media;
+      query.matches = initial;
+      query.set = value => {
+        query.matches = value;
+        const event = new Event("change");
+        event.matches = value;
+        query.dispatchEvent(event);
+      };
+      return query;
+    };
+    window.fixtureMedia = {
+      dark: makeQuery("(prefers-color-scheme: dark)", !!options.dark),
+      motion: makeQuery("(prefers-reduced-motion: reduce)", !!options.motion)
+    };
+    window.matchMedia = media => Object.values(window.fixtureMedia).find(query => query.media === media) || nativeMatch(media);
+  })();`;
+  html.head.prepend(base, bootstrap);
+  const probe = document.createElement("iframe");
+  probe.title = `Isolated ${file} checks`;
+  probe.width = "390";
+  probe.height = "600";
+  probe.style.cssText = "position:absolute;left:-10000px;top:0";
+  probes.push(probe);
+  const loaded = new Promise((resolve, reject) => {
+    const timer = setTimeout(() => reject(new Error(`Timed out loading ${file}`)), 10000);
+    probe.addEventListener("load", () => { clearTimeout(timer); resolve(); }, { once: true });
+  });
+  probe.srcdoc = "<!doctype html>" + html.documentElement.outerHTML;
+  document.body.appendChild(probe);
+  await loaded;
+  if (probe.contentWindow.fixtureErrors?.length) throw new Error(probe.contentWindow.fixtureErrors.join("; "));
+  return probe.contentWindow;
+}
+
+frame.addEventListener("load", async () => {
+  try {
+    const win = frame.contentWindow;
+    const doc = frame.contentDocument;
+    const scrollTo = win.scrollTo;
+    const visiblePages = () => [...doc.querySelectorAll(".page-view")].filter(v => !v.hidden);
+    const navigate = page => {
+      win.location.hash = page;
+      win.syncPage({ scrollToTop: true });
+    };
+
+    assert(doc.activeElement === doc.body,
+      "Initial load must preserve the first keyboard stop at Skip to content");
+
+    navigate("education");
+    navigate("home");
+    await wait(400);
+    assert(visiblePages().length === 1 && visiblePages()[0].dataset.page === "home",
+      "Returning home during a transition must cancel the pending destination");
+    assert(win.getComputedStyle(doc.querySelector('[data-page="home"]')).opacity === "1",
+      "Cancelling a transition must restore the current page's opacity");
+    assert([...doc.querySelectorAll('[aria-current="page"]')].every(a => a.dataset.pageLink === "home"),
+      "The active navigation link must match the visible page");
+
+    navigate("education");
+    navigate("about");
+    await wait(400);
+    assert(visiblePages().length === 1 && visiblePages()[0].dataset.page === "about",
+      "Rapid navigation must show only the final destination");
+    assert(doc.activeElement === visiblePages()[0].querySelector("h1, h2"),
+      "Navigation must focus the destination heading");
+
+    doc.querySelector(".skip-link").click();
+    await wait(400);
+    assert(visiblePages()[0].dataset.page === "about" && win.location.hash === "#about",
+      "Skipping navigation must preserve the current page");
+    assert(doc.activeElement === doc.querySelector("#content-root"),
+      "Skipping navigation must focus the main content");
+
+    const toggle = doc.querySelector(".nav-toggle");
+    toggle.click();
+    const link = doc.querySelector(".nav-list a");
+    link.focus();
+    link.dispatchEvent(new win.KeyboardEvent("keydown", { key: "Escape", bubbles: true }));
+    assert(toggle.getAttribute("aria-expanded") === "false", "Escape must close mobile navigation");
+    assert(doc.activeElement === toggle, "Escape must return focus to the navigation toggle");
+
+    win.scrollTo({ top: 0, behavior: "instant" });
+    await wait(400);
+    const backToTop = doc.querySelector(".scroll-top");
+    backToTop.focus();
+    assert(doc.activeElement !== backToTop, "The invisible back-to-top button must not receive focus");
+    win.scrollTo({ top: 700, behavior: "instant" });
+    await wait(400);
+    backToTop.focus();
+    assert(doc.activeElement === backToTop, "The visible back-to-top button must receive focus");
+
+    win.scrollTo = options => {
+      assert(options.behavior === (win.matchMedia("(prefers-reduced-motion: reduce)").matches ? "auto" : "smooth"),
+        "Back-to-top scrolling must respect the reduced-motion preference");
+    };
+    backToTop.click();
+    win.scrollTo = scrollTo;
+
+    assert(doc.title === visiblePages()[0].dataset.title,
+      "The document title must match the visible route");
+    navigate("missing-route");
+    await wait(400);
+    assert(win.location.hash === "#home" && visiblePages()[0].dataset.page === "home",
+      "Unknown routes must normalize to Home");
+
+    const scrolls = [];
+    win.scrollTo = options => scrolls.push(options);
+    doc.querySelector('[data-page-link="home"]').click();
+    assert(scrolls.some(options => options.top === 0 && options.behavior === "instant"),
+      "Clicking the current route must return to top without a new hash event");
+    assert(doc.activeElement === visiblePages()[0].querySelector("h1, h2"),
+      "Clicking the current route must focus its heading after closing navigation");
+    win.scrollTo = scrollTo;
+
+    const callbacks = [];
+    const requestFrame = win.requestAnimationFrame;
+    const cancelFrame = win.cancelAnimationFrame;
+    win.requestAnimationFrame = callback => { callbacks.push(callback); return callbacks.length; };
+    win.cancelAnimationFrame = () => {};
+    win.history.replaceState(null, "", "#education");
+    win.setActivePage("education");
+    await wait(180);
+    win.history.replaceState(null, "", "#about");
+    win.setActivePage("about");
+    await wait(180);
+    callbacks.forEach(callback => callback());
+    assert(visiblePages()[0].dataset.page === "about" && doc.activeElement === visiblePages()[0].querySelector("h1, h2"),
+      "A stale animation frame must not focus an earlier destination");
+    win.requestAnimationFrame = requestFrame;
+    win.cancelAnimationFrame = cancelFrame;
+
+    const wasDark = doc.documentElement.classList.contains("dark-mode");
+    const header = doc.querySelector(".site-header");
+    const wasScrolled = header.classList.contains("is-scrolled");
+    for (const dark of [false, true]) {
+      doc.documentElement.classList.toggle("dark-mode", dark);
+      const skip = win.getComputedStyle(doc.querySelector(".skip-link"));
+      assert(contrast(skip.color, skip.backgroundColor) >= 4.5,
+        `${dark ? "Dark" : "Light"} skip-link text must have readable contrast`);
+    }
+    doc.documentElement.classList.remove("dark-mode");
+    header.classList.add("is-scrolled");
+    assert(win.getComputedStyle(doc.querySelector(".brand-mark")).filter.includes("invert(1)"),
+      "The scrolled light header must show a light brand mark");
+    header.classList.toggle("is-scrolled", wasScrolled);
+
+    const printRules = [...doc.styleSheets].flatMap(sheet => [...sheet.cssRules])
+      .filter(rule => rule.media?.mediaText === "print")
+      .flatMap(rule => [...rule.cssRules].map(child => child.cssText)).join("\n");
+    assert(printRules.length > 0, "The stylesheet must contain print rules");
+    const printStyle = doc.createElement("style");
+    printStyle.textContent = printRules;
+    doc.head.appendChild(printStyle);
+    doc.querySelectorAll(".page-view").forEach(view => view.classList.add("page-out"));
+    for (const dark of [false, true]) {
+      doc.documentElement.classList.toggle("dark-mode", dark);
+      const label = dark ? "Dark" : "Light";
+      const views = [...doc.querySelectorAll(".page-view")].map(view => win.getComputedStyle(view));
+      assert(views.length === 3 && views.every(style => style.display === "block" && style.opacity === "1" && style.animationName === "none"),
+        `${label} print rules must show all three routes without transitions`);
+      const copy = [...doc.querySelectorAll(".hero-bio,.paper-tags,.record-role,.record-meta,.skill-items,.service-list li,.hobby-card p,.page-footer p")];
+      assert(win.getComputedStyle(doc.body).backgroundColor === "rgb(255, 255, 255)" &&
+        copy.every(element => win.getComputedStyle(element).color === "rgb(0, 0, 0)"),
+        `${label} print rules must use white paper and dark descendant text`);
+      assert(win.getComputedStyle(doc.querySelector(".code-link")).color === "rgb(37, 79, 121)" &&
+        win.getComputedStyle(doc.querySelector(".hobby-card")).backgroundColor === "rgba(0, 0, 0, 0)",
+        `${label} print links and cards must ignore screen theme colors`);
+      const whiteIcons = [...doc.querySelectorAll('.sdg-icon [stroke="white"],.sdg-icon [stroke="#fff"],.sdg-icon [fill="white"],.sdg-icon [fill="#fff"]')];
+      assert(whiteIcons.length === 3 && whiteIcons.every(icon =>
+        ["white", "#fff"].includes(icon.getAttribute("stroke")) ?
+          win.getComputedStyle(icon).stroke === "rgb(0, 0, 0)" :
+          win.getComputedStyle(icon).fill === "rgb(0, 0, 0)"),
+        `${label} print icons must remain visible after removing colored backgrounds`);
+    }
+    printStyle.remove();
+    doc.querySelectorAll(".page-view").forEach(view => view.classList.remove("page-out"));
+    doc.documentElement.classList.toggle("dark-mode", wasDark);
+
+    const blocked = await loadProbe("../index.html", { blockStorage: true });
+    const blockedDoc = blocked.document;
+    assert(blocked.readStoredTheme() === null, "Blocked storage reads must be handled");
+    blockedDoc.querySelector(".theme-toggle").click();
+    blocked.fixtureMedia.dark.set(true);
+    blocked.fixtureMedia.dark.set(false);
+    assert(blockedDoc.documentElement.classList.contains("dark-mode"),
+      "A manual theme must survive OS changes when saving is blocked");
+    blocked.dispatchEvent(new blocked.StorageEvent("storage", { key: "unrelated", newValue: "light" }));
+    assert(blockedDoc.documentElement.classList.contains("dark-mode"),
+      "Unrelated storage events must preserve the chosen theme");
+    blocked.dispatchEvent(new blocked.StorageEvent("storage", { key: "theme", newValue: "light" }));
+    assert(!blockedDoc.documentElement.classList.contains("dark-mode") &&
+      blockedDoc.querySelector(".theme-toggle use").getAttribute("href") === "#icon-moon",
+      "A theme storage event must update colors and the toggle icon");
+    blocked.fixtureMedia.dark.set(true);
+    assert(!blockedDoc.documentElement.classList.contains("dark-mode"),
+      "A saved light choice must take precedence over the OS");
+    blocked.dispatchEvent(new blocked.StorageEvent("storage", { key: "theme", newValue: null }));
+    assert(blockedDoc.documentElement.classList.contains("dark-mode"),
+      "Removing the saved choice must follow the current OS theme");
+    blocked.fixtureMedia.motion.set(true);
+    blocked.setActivePage("education");
+    assert(!blockedDoc.querySelector('[data-page="education"]').hidden &&
+      !blockedDoc.querySelector(".page-out,.page-in"),
+      "Enabling reduced motion must make subsequent navigation immediate");
+    const motionScrolls = [];
+    blocked.scrollTo = options => motionScrolls.push(options);
+    blockedDoc.querySelector(".scroll-top").click();
+    assert(motionScrolls.at(-1).behavior === "auto",
+      "Back-to-top must use the updated reduced-motion preference");
+    blocked.fixtureMedia.motion.set(false);
+    blockedDoc.querySelector(".scroll-top").click();
+    assert(motionScrolls.at(-1).behavior === "smooth",
+      "Back-to-top may scroll smoothly after reduced motion is disabled");
+
+    const missing = await loadProbe("../404.html", { theme: "dark" });
+    assert(missing.document.documentElement.classList.contains("dark-mode"),
+      "The 404 page must apply a saved dark choice before paint");
+    const primary = missing.document.querySelector(".primary");
+    const primaryStyle = missing.getComputedStyle(primary);
+    assert(contrast(primaryStyle.color, primaryStyle.backgroundColor) >= 4.5,
+      "The dark 404 primary button must have readable contrast");
+    assert(missing.getComputedStyle(missing.document.querySelector(".header img")).filter.includes("invert(1)"),
+      "The dark 404 brand mark must remain visible");
+    missing.dispatchEvent(new missing.StorageEvent("storage", { key: "theme", newValue: "light" }));
+    missing.fixtureMedia.dark.set(true);
+    assert(!missing.document.documentElement.classList.contains("dark-mode"),
+      "A saved light 404 choice must override a dark OS preference");
+    await wait(300);
+    const lightPrimary = missing.getComputedStyle(primary);
+    assert(contrast(lightPrimary.color, lightPrimary.backgroundColor) >= 4.5,
+      "The light 404 primary button must have readable contrast");
+    missing.dispatchEvent(new missing.StorageEvent("storage", { key: "theme", newValue: null }));
+    assert(missing.document.documentElement.classList.contains("dark-mode"),
+      "The 404 page must follow the OS after removing the saved choice");
+    const missingBlocked = await loadProbe("../404.html", { blockStorage: true, dark: true });
+    assert(missingBlocked.document.documentElement.classList.contains("dark-mode"),
+      "The 404 page must handle blocked storage and use the OS theme");
+    assert(missingBlocked.document.querySelector("#year").textContent === String(new Date().getFullYear()),
+      "The 404 footer year must be current");
+    assert([blocked, missing, missingBlocked].every(probe => probe.fixtureErrors.length === 0),
+      "Isolated probes must finish without script errors");
+  } catch (error) {
+    failures.push(error.message);
+  } finally {
+    probes.forEach(probe => probe.remove());
+  }
+  results.textContent = `${passed} passed, ${failures.length} failed`;
+  const list = document.createElement("ul");
+  failures.forEach(message => {
+    const item = document.createElement("li");
+    item.textContent = message;
+    list.appendChild(item);
+  });
+  document.body.appendChild(list);
+  document.documentElement.dataset.failed = String(failures.length);
+});
+</script>
+</html>
