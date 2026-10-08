@@ -35,7 +35,6 @@
   --focus-color: #254f79;
 }
 
-/* Base */
 
 *,
 *::before,
@@ -132,7 +131,6 @@ h2 {
   fill: currentColor;
 }
 
-/* Layout */
 
 .site-shell {
   width: min(calc(100% - var(--shell-gutter)), var(--page-width));
@@ -160,7 +158,6 @@ h2 {
   text-align: center;
 }
 
-/* Header */
 
 .site-header {
   position: sticky;
@@ -257,7 +254,6 @@ h2 {
   font-weight: 700;
 }
 
-/* Home */
 
 .hero-block {
   display: grid;
@@ -329,7 +325,6 @@ h2 {
   text-align: justify;
 }
 
-/* Sections */
 
 .content-section {
   padding: 2.4rem 0 0.6rem;
@@ -351,7 +346,6 @@ h2 {
   font-weight: 500;
 }
 
-/* Publications */
 
 .paper-entry {
   display: grid;
@@ -450,7 +444,6 @@ h2 {
   color: #444;
 }
 
-/* Research diagrams */
 .venn-pair {
   display: grid;
   grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
@@ -568,7 +561,6 @@ h2 {
   color: var(--ink);
 }
 
-/* SDG */
 
 .sdg-section h2 {
   color: var(--blue);
@@ -622,7 +614,6 @@ h2 {
   opacity: 0.7;
 }
 
-/* Records */
 
 .record-list {
   display: grid;
@@ -696,7 +687,6 @@ h2 {
   line-height: var(--line-relaxed);
 }
 
-/* Tablet */
 
 @media (max-width: 1020px) {
   .paper-entry,
@@ -727,7 +717,6 @@ h2 {
   }
 }
 
-/* Mobile */
 
 @media (max-width: 760px) {
   :root {
@@ -821,7 +810,6 @@ h2 {
   }
 }
 
-/* Phone */
 
 @media (max-width: 480px) {
   :root {
@@ -878,12 +866,10 @@ h2 {
   }
 }
 
-/* smooth link transitions */
 a {
   transition: color 0.18s ease, opacity 0.18s ease;
 }
 
-/* Page transitions */
 @keyframes page-out {
   to { opacity: 0; }
 }
@@ -899,12 +885,10 @@ a {
   animation: page-in 0.18s ease forwards;
 }
 
-/* Project images */
 .paper-image {
   overflow: hidden;
 }
 
-/* hobby card subtle hover */
 .hobby-card {
   transition: box-shadow 0.2s ease;
 }
@@ -912,18 +896,15 @@ a {
   box-shadow: 0 6px 18px rgba(0, 0, 0, 0.08);
 }
 
-/* balanced heading wrapping */
 h1, h2 {
   text-wrap: balance;
 }
 
-/* refined link underline */
 a {
   text-underline-offset: 3px;
   text-decoration-thickness: 1px;
 }
 
-/* Desktop navigation indicator */
 .nav-list a {
   position: relative;
 }
@@ -950,7 +931,6 @@ a {
   background: rgba(255, 255, 255, 0.75);
 }
 
-/* Mobile navigation indicator */
 @media (max-width: 760px) {
   .nav-list a::after {
     display: none;
@@ -963,7 +943,6 @@ a {
   }
 }
 
-/* dark header nav dropdown */
 .site-header.is-scrolled .nav-list {
   background: rgba(22, 22, 24, 0.98);
   border-color: rgba(255, 255, 255, 0.09);
@@ -980,7 +959,6 @@ a {
   border-left-color: #60a5fa;
 }
 
-/* profile photo hover */
 .profile-photo {
   transition: transform 0.38s ease, box-shadow 0.38s ease;
 }
@@ -989,7 +967,6 @@ a {
   box-shadow: 0 20px 48px rgba(0, 0, 0, 0.18);
 }
 
-/* scroll-to-top button */
 .scroll-top {
   position: fixed;
   bottom: 1.8rem;
@@ -1029,7 +1006,6 @@ a {
   transform: translateY(-2px);
 }
 
-/* code-link pill */
 .code-link {
   display: inline-flex;
   align-items: center;
@@ -1050,7 +1026,6 @@ a {
 }
 
 
-/* theme toggle button */
 .theme-toggle {
   display: inline-flex;
   align-items: center;
@@ -1081,7 +1056,6 @@ a {
 .site-header.is-scrolled .theme-toggle:hover { background: rgba(255,255,255,0.1); }
 
 
-/* smooth theme transition */
 body,
 .site-header,
 .nav-list,
@@ -1092,7 +1066,6 @@ body,
   transition-timing-function: ease;
 }
 
-/* The head script sets the theme before paint. */
 :root.dark-mode {
   color-scheme: dark;
   --page-bg: #0f0f11;
@@ -1163,7 +1136,6 @@ body,
   }
 }
 
-/* print */
 @media print {
   :root,
   :root.dark-mode {
