@@ -15,7 +15,7 @@
       try {
         var stored = localStorage.getItem("theme");
         if (stored === "dark" || stored === "light") choice = stored;
-      } catch (e) { /* Storage can be blocked. */ }
+      } catch (e) { }
       function apply() {
         var dark = choice ? choice === "dark" : query.matches;
         document.documentElement.classList.toggle("dark-mode", dark);

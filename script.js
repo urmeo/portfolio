@@ -1,4 +1,3 @@
-/* Page controls */
 const navToggle  = document.querySelector(".nav-toggle");
 const navList    = document.querySelector(".nav-list");
 const siteHeader = document.querySelector(".site-header");
@@ -17,7 +16,6 @@ let routeRevision = 0;
 
 if ("scrollRestoration" in history) history.scrollRestoration = "manual";
 
-/* ---- nav ---- */
 function setNavState(open) {
   if (!navToggle || !navList) return;
   navList.classList.toggle("is-open", open);
@@ -71,7 +69,6 @@ function initNavigation() {
   });
 }
 
-/* ---- routing ---- */
 function getPageFromHash(hash = window.location.hash) {
   const page = hash.replace("#", "").trim();
   return pageMap.has(page) ? page : DEFAULT_PAGE;
@@ -159,7 +156,6 @@ function syncPage({ scrollToTop = false, animate = true, focus = true } = {}) {
   closeNav();
 }
 
-/* ---- header shadow ---- */
 function initHeader() {
   if (!siteHeader) return;
   const sync = () => siteHeader.classList.toggle("is-scrolled", window.scrollY > HEADER_SCROLL);
@@ -167,14 +163,12 @@ function initHeader() {
   window.addEventListener("scroll", sync, { passive: true });
 }
 
-/* ---- footer year ---- */
 function initYear() {
   document.querySelectorAll("[data-year]").forEach(el => {
     el.textContent = new Date().getFullYear();
   });
 }
 
-/* The head script sets the initial theme before paint. */
 const THEME_KEY = "theme";
 const darkQuery = window.matchMedia("(prefers-color-scheme: dark)");
 
@@ -204,7 +198,7 @@ function initThemeToggle() {
       choice = dark ? "dark" : "light";
       try {
         localStorage.setItem(THEME_KEY, choice);
-      } catch { /* Keep the choice for this page when storage is blocked. */ }
+      } catch { }
     }
   }
 
@@ -229,7 +223,6 @@ function initThemeToggle() {
   });
 }
 
-/* ---- scroll-to-top button ---- */
 function initScrollToTop() {
   const btn = document.createElement("button");
   btn.className = "scroll-top";
@@ -246,7 +239,6 @@ function initScrollToTop() {
   btn.addEventListener("click", () => window.scrollTo({ top: 0, behavior: motionQuery.matches ? "auto" : "smooth" }));
 }
 
-/* ---- boot ---- */
 window.addEventListener("hashchange", () => syncPage({ scrollToTop: true }));
 motionQuery.addEventListener("change", e => {
   if (e.matches) syncPage({ animate: false });
