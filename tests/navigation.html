@@ -198,6 +198,7 @@ frame.addEventListener("load", async () => {
     }
     doc.documentElement.classList.remove("dark-mode");
     header.classList.add("is-scrolled");
+    await new Promise(resolve => win.requestAnimationFrame(() => win.requestAnimationFrame(resolve)));
     assert(win.getComputedStyle(doc.querySelector(".brand-mark")).filter.includes("invert(1)"),
       "The scrolled light header must show a light brand mark");
     header.classList.toggle("is-scrolled", wasScrolled);
