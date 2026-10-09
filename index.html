@@ -140,17 +140,17 @@
         <h2>Selected Projects</h2>
 
         <article class="paper-entry">
-          <a class="paper-image-link" href="assets/project-calmsense.jpg" target="_blank" rel="noopener noreferrer"><img src="assets/project-calmsense.jpg" alt="CalmSense: current static benchmark dashboard" class="paper-image" loading="eager" fetchpriority="high" decoding="async" width="1280" height="720"></a>
+          <a class="paper-image-link" href="assets/project-calmsense.png" target="_blank" rel="noopener noreferrer"><img src="assets/project-calmsense.png" alt="CalmSense recorded subject-holdout accuracy from saved model metrics" class="paper-image" loading="eager" fetchpriority="high" decoding="async" width="1200" height="760"></a>
           <div class="paper-copy">
             <p class="paper-title"><strong>CalmSense</strong></p>
             <p class="paper-summary">Wearable stress benchmark.</p>
             <ul class="project-facts">
               <li>15 subjects · 58 saved features · LOSO.</li>
               <li>RF binary accuracy 0.910, averaged across subjects.</li>
-              <li>Static results; no significant feature-model differences.</li>
+              <li>Recorded benchmark; current code differs from its source.</li>
             </ul>
             <p class="paper-tags">WESAD · LOSO · SHAP · Calibration</p>
-            <p class="paper-links"><a href="https://github.com/urmeo/CalmSense" target="_blank" rel="noopener noreferrer" class="code-link">Code</a> <a href="https://urmeo.github.io/CalmSense/" target="_blank" rel="noopener noreferrer" class="code-link">Demo</a></p>
+            <p class="paper-links"><a href="https://github.com/urmeo/CalmSense" target="_blank" rel="noopener noreferrer" class="code-link">Code</a> <a href="https://github.com/urmeo/CalmSense/blob/2f29a3ee9d340754f1a66e6830e357621ab974bb/outputs/results/metrics.json" target="_blank" rel="noopener noreferrer" class="code-link">Source metrics</a> <a href="https://urmeo.github.io/CalmSense/" target="_blank" rel="noopener noreferrer" class="code-link">Demo</a></p>
           </div>
         </article>
 
@@ -165,19 +165,17 @@
               <li>Individual activity and health benefits unmeasured.</li>
             </ul>
             <p class="paper-tags">Demand · Weather · AQI · Logistic</p>
-            <p class="paper-links"><a href="https://github.com/urmeo/PulseShift" target="_blank" rel="noopener noreferrer" class="code-link">Code</a> <a href="https://urmeo.github.io/PulseShift/" target="_blank" rel="noopener noreferrer" class="code-link">Demo</a></p>
+            <p class="paper-links"><a href="https://github.com/urmeo/PulseShift" target="_blank" rel="noopener noreferrer" class="code-link">Code</a> <a href="https://github.com/urmeo/PulseShift/blob/3a134ea45fb5b274cd5a959762b493c03319c455/outputs/tables/holdout_predictions.csv" target="_blank" rel="noopener noreferrer" class="code-link">Source predictions</a> <a href="https://urmeo.github.io/PulseShift/" target="_blank" rel="noopener noreferrer" class="code-link">Demo</a></p>
           </div>
         </article>
 
-        <article class="paper-entry">
-          <a class="paper-image-link" href="assets/project-novavision.png" target="_blank" rel="noopener noreferrer"><img src="assets/project-novavision.png" alt="NovaVision saved pilot recovery accuracy with bootstrap 95% intervals" class="paper-image" loading="lazy" decoding="async" width="750" height="525"></a>
+        <article class="paper-entry paper-entry-text">
           <div class="paper-copy">
             <p class="paper-title"><strong>NovaVision</strong></p>
-            <p class="paper-summary">Text-to-image emotion pilot.</p>
+            <p class="paper-summary">Emotion conditioned image app.</p>
             <ul class="project-facts">
-              <li>7 classes · 256 px · CPU.</li>
-              <li>No conditioning tier passes Holm correction.</li>
-              <li>Probe collapse; correction limited to 5/7 classes.</li>
+              <li>Text prompts → image generation → emotion scoring.</li>
+              <li>Original pilot images are missing; recovery results are unverified.</li>
             </ul>
             <p class="paper-tags">Affect · SD-Turbo · CLIP · Evaluation</p>
             <p class="paper-links"><a href="https://github.com/urmeo/NovaVision" target="_blank" rel="noopener noreferrer" class="code-link">Code</a> <a href="https://youtu.be/S7LZsnMPOmA" target="_blank" rel="noopener noreferrer" class="code-link">Video</a></p>
@@ -185,7 +183,7 @@
         </article>
 
         <article class="paper-entry">
-          <a class="paper-image-link" href="assets/project-nexusrag.png" target="_blank" rel="noopener noreferrer"><img src="assets/project-nexusrag.png" alt="NexusRAG SciFact 300 and NFCorpus 323-query retrieval results" class="paper-image" loading="lazy" decoding="async" width="1440" height="600"></a>
+          <a class="paper-image-link" href="assets/project-nexusrag.png" target="_blank" rel="noopener noreferrer"><img src="assets/project-nexusrag.png" alt="NexusRAG recorded SciFact 300 and NFCorpus 323-query retrieval results" class="paper-image" loading="lazy" decoding="async" width="1800" height="1050"></a>
           <div class="paper-copy">
             <p class="paper-title"><strong>NexusRAG</strong></p>
             <p class="paper-summary">Local search and cited answers.</p>
@@ -195,7 +193,7 @@
               <li>Citation indices checked; claims need review.</li>
             </ul>
             <p class="paper-tags">RAG · LanceDB · BM25 · Ollama</p>
-            <p class="paper-links"><a href="https://github.com/urmeo/NexusRAG" target="_blank" rel="noopener noreferrer" class="code-link">Code</a> <a href="https://youtu.be/AbSin2y_XEw" target="_blank" rel="noopener noreferrer" class="code-link">Video</a></p>
+            <p class="paper-links"><a href="https://github.com/urmeo/NexusRAG" target="_blank" rel="noopener noreferrer" class="code-link">Code</a> <a href="https://github.com/urmeo/NexusRAG/tree/d9478d9931fa27088f153cca64d87604c6f914f6/outputs/results" target="_blank" rel="noopener noreferrer" class="code-link">Source evaluations</a> <a href="https://youtu.be/AbSin2y_XEw" target="_blank" rel="noopener noreferrer" class="code-link">Video</a></p>
           </div>
         </article>
 
@@ -205,9 +203,9 @@
             <p class="paper-title"><strong>Multimodal-Multisensor</strong></p>
             <p class="paper-summary">Longitudinal eye-tracking and HRV study.</p>
             <ul class="project-facts">
-              <li>10 adults · 3 weekly sessions.</li>
-              <li>ICC(1) 0.22–0.61 across reported measures.</li>
-              <li>Reported HRV interval crosses zero; underpowered.</li>
+              <li>Eye-tracking, cardiac and questionnaire recordings.</li>
+              <li>Session photograph preserved from the original study.</li>
+              <li>Released group summaries lack complete participant links.</li>
             </ul>
             <p class="paper-tags">Longitudinal · Eye-tracking · HRV · ICC</p>
             <p class="paper-links"><a href="https://github.com/urmeo/Multimodal-Multisensor" target="_blank" rel="noopener noreferrer" class="code-link">Code</a> <a href="https://urmeo.github.io/Psychometric/en/index.html" target="_blank" rel="noopener noreferrer" class="code-link">Demo</a> <a href="https://www.icdvrat.com/2024/ICDVRAT2024-Proceedings.pdf#page=172" target="_blank" rel="noopener noreferrer" class="code-link">Paper</a></p>

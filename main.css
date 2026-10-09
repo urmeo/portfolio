@@ -370,6 +370,10 @@ h2 {
 
 .paper-image-link { display: block; }
 
+.paper-entry-text {
+  grid-template-columns: minmax(0, 1fr);
+}
+
 .paper-copy {
   max-width: 52rem;
   padding-top: 0.2rem;
