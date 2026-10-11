@@ -199,8 +199,11 @@ frame.addEventListener("load", async () => {
     doc.documentElement.classList.remove("dark-mode");
     header.classList.add("is-scrolled");
     await new Promise(resolve => win.requestAnimationFrame(() => win.requestAnimationFrame(resolve)));
-    assert(win.getComputedStyle(doc.querySelector(".brand-mark")).filter.includes("invert(1)"),
-      "The scrolled light header must show a light brand mark");
+    const scrolledHeader = win.getComputedStyle(header);
+    const scrolledLinks = [...doc.querySelectorAll(".nav-list a")];
+    assert(scrolledLinks.every(link =>
+      contrast(win.getComputedStyle(link).color, scrolledHeader.backgroundColor) >= 4.5),
+      "Scrolled light-header navigation must retain readable contrast");
     header.classList.toggle("is-scrolled", wasScrolled);
 
     const printRules = [...doc.styleSheets].flatMap(sheet => [...sheet.cssRules])
