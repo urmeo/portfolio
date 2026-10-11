@@ -1,11 +1,11 @@
-const navToggle  = document.querySelector(".nav-toggle");
-const navList    = document.querySelector(".nav-list");
+const navToggle = document.querySelector(".nav-toggle");
+const navList = document.querySelector(".nav-list");
 const siteHeader = document.querySelector(".site-header");
-const pageLinks  = Array.from(document.querySelectorAll("[data-page-link]"));
-const pageViews  = Array.from(document.querySelectorAll(".page-view"));
+const pageLinks = document.querySelectorAll("[data-page-link]");
+const pageViews = Array.from(document.querySelectorAll(".page-view"));
 
-const DEFAULT_PAGE  = "home";
-const MOBILE_BP     = 760;
+const DEFAULT_PAGE = "home";
+const MOBILE_BP = 760;
 const HEADER_SCROLL = 48;
 const motionQuery = window.matchMedia("(prefers-reduced-motion: reduce)");
 
@@ -24,7 +24,7 @@ function setNavState(open) {
 }
 
 const isNavOpen = () => navList?.classList.contains("is-open") ?? false;
-const closeNav  = () => setNavState(false);
+const closeNav = () => setNavState(false);
 
 function initNavigation() {
   if (!navToggle || !navList) return;
@@ -52,7 +52,7 @@ function initNavigation() {
   });
 
   document.addEventListener("click", e => {
-    if (isNavOpen() && e.target instanceof Node && !e.target.closest(".site-header")) {
+    if (isNavOpen() && e.target instanceof Element && !e.target.closest(".site-header")) {
       closeNav();
     }
   });
@@ -91,7 +91,7 @@ function setActivePage(page, { scrollToTop = false, animate = true, focus = true
   const incoming = pageMap.get(page);
   if (!incoming) return;
 
-  const outgoing = [...pageMap.values()].find(v => !v.hidden);
+  const outgoing = pageViews.find(v => !v.hidden);
 
   const revision = ++routeRevision;
   if (transitionTimer !== null) {
@@ -189,8 +189,9 @@ function initThemeToggle() {
     document.documentElement.classList.toggle("dark-mode", dark);
     document.documentElement.style.colorScheme = dark ? "dark" : "light";
     if (btn) {
-      btn.setAttribute("aria-label", dark ? "Switch to light mode" : "Switch to dark mode");
-      btn.title = dark ? "Switch to light mode" : "Switch to dark mode";
+      const label = dark ? "Switch to light mode" : "Switch to dark mode";
+      btn.setAttribute("aria-label", label);
+      btn.title = label;
       const use = btn.querySelector("use");
       if (use) use.setAttribute("href", dark ? "#icon-sun" : "#icon-moon");
     }
@@ -225,9 +226,10 @@ function initThemeToggle() {
 
 function initScrollToTop() {
   const btn = document.createElement("button");
+  btn.type = "button";
   btn.className = "scroll-top";
   btn.setAttribute("aria-label", "Back to top");
-  btn.innerHTML = `<svg viewBox="0 0 24 24" fill="none" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="18 15 12 9 6 15"/></svg>`;
+  btn.innerHTML = `<svg viewBox="0 0 24 24" fill="none" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><polyline points="18 15 12 9 6 15"/></svg>`;
   document.body.appendChild(btn);
 
   const sync = () => {
