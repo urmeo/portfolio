@@ -1,6 +1,6 @@
 # Portfolio
 
-Urme Bose's projects, education and research interests.
+urme's projects, education and research interests.
 
 **Research · Projects · Accessibility · Static site**
 
