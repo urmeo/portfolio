@@ -9,23 +9,23 @@
   <link rel="icon" href="/portfolio/assets/brand-mark.svg" type="image/svg+xml">
   <link rel="apple-touch-icon" href="/portfolio/assets/brand-mark.svg">
   <script>
-    (function () {
-      var query = window.matchMedia("(prefers-color-scheme: dark)");
-      var choice = null;
+    (() => {
+      const query = window.matchMedia("(prefers-color-scheme: dark)");
+      let choice = null;
       try {
-        var stored = localStorage.getItem("theme");
+        const stored = localStorage.getItem("theme");
         if (stored === "dark" || stored === "light") choice = stored;
-      } catch (e) { }
+      } catch { }
       function apply() {
-        var dark = choice ? choice === "dark" : query.matches;
+        const dark = choice ? choice === "dark" : query.matches;
         document.documentElement.classList.toggle("dark-mode", dark);
         document.documentElement.style.colorScheme = dark ? "dark" : "light";
       }
       apply();
       if (typeof query.addEventListener === "function") query.addEventListener("change", apply);
-      window.addEventListener("storage", function (e) {
+      window.addEventListener("storage", e => {
         if (e.key !== "theme" && e.key !== null) return;
-        try { if (e.storageArea && e.storageArea !== localStorage) return; } catch (error) { return; }
+        try { if (e.storageArea && e.storageArea !== localStorage) return; } catch { return; }
         choice = e.newValue === "dark" || e.newValue === "light" ? e.newValue : null;
         apply();
       });
@@ -51,25 +51,28 @@
 
     * { box-sizing: border-box; }
 
-    html, body { height: 100%; }
-
     body {
       margin: 0;
       background: var(--bg);
       color: var(--ink);
-      font-family: Arial, sans-serif;
-      font-weight: 400;
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
       display: flex;
       flex-direction: column;
       min-height: 100vh;
     }
 
     .header {
+      padding: 1.2rem 2rem;
+      border-bottom: 1px solid var(--line);
+    }
+
+    .header a {
       display: flex;
       align-items: center;
       gap: 0.7rem;
-      padding: 1.2rem 2rem;
-      border-bottom: 1px solid var(--line);
+      width: fit-content;
+      color: inherit;
+      text-decoration: none;
     }
 
     .header img {
@@ -83,7 +86,6 @@
 
     .header span {
       font-size: 1.15rem;
-      color: var(--ink);
     }
 
     .main {
@@ -129,7 +131,6 @@
     }
 
     .links a {
-      display: inline-block;
       padding: 0.55rem 1.1rem;
       border: 1px solid var(--line);
       border-radius: 999px;
@@ -175,7 +176,7 @@
 </head>
 <body>
   <header class="header">
-    <a href="/portfolio/" style="display:flex;align-items:center;gap:0.7rem;text-decoration:none;color:inherit;">
+    <a href="/portfolio/">
       <img src="/portfolio/assets/brand-mark.svg" alt="">
       <span>urme</span>
     </a>

@@ -43,7 +43,6 @@ async function loadProbe(file, options = {}) {
     window.fixtureErrors = [];
     window.addEventListener("error", event => window.fixtureErrors.push(event.message));
     window.addEventListener("unhandledrejection", event => window.fixtureErrors.push(String(event.reason)));
-    // Keep srcdoc hash updates on its own URL rather than the asset base URL.
     const replaceState = history.replaceState.bind(history);
     history.replaceState = (state, title, url) => replaceState(state, title,
       typeof url === "string" && url.startsWith("#") ? new URL(url, location.href).href : url);
