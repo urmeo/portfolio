@@ -11,8 +11,8 @@ Urme Bose's projects, education and research interests.
 | Layer | Files / tools |
 | --- | --- |
 | Content | `index.html`, `assets/`, `404.html` |
-| Style | `main.css`, system fonts, light/dark themes |
-| Navigation | `script.js`, hash routes, keyboard controls |
+| Style | `assets/css/main.css`, system fonts, light/dark themes |
+| Navigation | `assets/js/script.js`, hash routes, keyboard controls |
 | Hosting | GitHub Pages; no build step |
 
 From this folder, run `python3 -m http.server 8000`.
