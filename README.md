@@ -1,25 +1,22 @@
 # Portfolio
 
-urme's projects, education and research interests.
+urme's research projects, education and interests.
 
-**Research · Projects · Accessibility · Static site**
+[View the portfolio](https://urmeo.github.io/portfolio/).
 
-**[Live site](https://urmeo.github.io/portfolio/)**
+The site uses HTML, CSS and JavaScript and is hosted on GitHub Pages. It has no build step or package dependencies. Edit `index.html` for content, `assets/css/main.css` for styles and `assets/js/script.js` for navigation and theme controls.
 
-`#home / #education / #about → one visible section`
+## Run locally
 
-| Layer | Files / tools |
-| --- | --- |
-| Content | `index.html`, `assets/`, `404.html` |
-| Style | `assets/css/main.css`, system fonts, light/dark themes |
-| Navigation | `assets/js/script.js`, hash routes, keyboard controls |
-| Hosting | GitHub Pages; no build step |
+From the repository folder, use Python 3 to start a preview server:
 
-From this folder, run `python3 -m http.server 8000`.
+```sh
+python3 -m http.server 8000
+```
 
-[Local site](http://localhost:8000/) · [Browser checks](http://localhost:8000/tests/navigation.html)
+Open [the local site](http://localhost:8000/). Python is only needed for this preview command; any static web server can serve the site.
 
-[Contributing and subpath preview](CONTRIBUTING.md) · [Privacy and reporting](SECURITY.md)
+Open [the browser checks](http://localhost:8000/tests/navigation.html) and expect zero failures. See [Contributing](CONTRIBUTING.md) for visual checks and a preview under the `/portfolio/` path. [Security and privacy](SECURITY.md) describes browser storage and vulnerability reporting.
 
 ## License
 
