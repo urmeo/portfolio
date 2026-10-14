@@ -305,6 +305,9 @@ function initBackToTop() {
   window.addEventListener("scroll", syncButtonVisibility, { passive: true });
 
   backToTopButton.addEventListener("click", () => {
+    const activePage = pageViews.find(pageView => !pageView.hidden);
+    if (activePage) focusFirstHeading(activePage);
+
     window.scrollTo({
       top: 0,
       behavior: reducedMotionQuery.matches ? "auto" : "smooth"
