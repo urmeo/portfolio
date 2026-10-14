@@ -110,8 +110,9 @@ frame.addEventListener("load", async () => {
       "Returning home during a transition must cancel the pending destination");
     assert(win.getComputedStyle(doc.querySelector('[data-page="home"]')).opacity === "1",
       "Cancelling a transition must restore the current page's opacity");
-    assert([...doc.querySelectorAll('[aria-current="page"]')].every(a => a.dataset.pageLink === "home"),
-      "The active navigation link must match the visible page");
+    const activeNavigationLinks = [...doc.querySelectorAll('.nav-list a[aria-current="page"]')];
+    assert(activeNavigationLinks.length === 1 && activeNavigationLinks[0].dataset.pageLink === "home",
+      "Exactly one active navigation link must match the visible page");
 
     navigate("education");
     navigate("about");
@@ -282,11 +283,18 @@ frame.addEventListener("load", async () => {
       "Enabling reduced motion must make subsequent navigation immediate");
     const motionScrolls = [];
     blocked.scrollTo = options => motionScrolls.push(options);
-    blockedDoc.querySelector(".scroll-top").click();
+    const blockedBackToTop = blockedDoc.querySelector(".scroll-top");
+    blockedBackToTop.classList.add("scroll-top--visible");
+    blockedBackToTop.focus();
+    assert(blockedDoc.activeElement === blockedBackToTop,
+      "The visible back-to-top button must accept keyboard focus");
+    blockedBackToTop.click();
+    assert(blockedDoc.activeElement === blockedDoc.querySelector('[data-page="education"] h1, [data-page="education"] h2'),
+      "Back-to-top must focus the active page heading before its button disappears");
     assert(motionScrolls.at(-1).behavior === "auto",
       "Back-to-top must use the updated reduced-motion preference");
     blocked.fixtureMedia.motion.set(false);
-    blockedDoc.querySelector(".scroll-top").click();
+    blockedBackToTop.click();
     assert(motionScrolls.at(-1).behavior === "smooth",
       "Back-to-top may scroll smoothly after reduced motion is disabled");
 
