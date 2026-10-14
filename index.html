@@ -4,20 +4,20 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="color-scheme" content="light dark">
-  <meta name="theme-color" content="#254f79" media="(prefers-color-scheme: light)">
-  <meta name="theme-color" content="#0f0f11" media="(prefers-color-scheme: dark)">
-  <meta name="description" content="urme: machine learning engineer and behavioural researcher. Wearable signals, longitudinal data and digital health.">
+  <meta name="theme-color" content="#f7f6f1" media="(prefers-color-scheme: light)">
+  <meta name="theme-color" content="#152326" media="(prefers-color-scheme: dark)">
+  <meta name="description" content="urme: behavioural researcher working with wearable signals, longitudinal data and machine learning.">
   <link rel="canonical" href="https://urmeo.github.io/portfolio/">
-  <meta property="og:title" content="urme | Machine Learning Engineer">
-  <meta property="og:description" content="Machine learning engineer and behavioural researcher. Wearable signals, longitudinal data and digital health.">
+  <meta property="og:title" content="urme | Behavioural Research &amp; Machine Learning">
+  <meta property="og:description" content="Behavioural researcher working with wearable signals, longitudinal data and machine learning.">
   <meta property="og:type" content="website">
   <meta property="og:url" content="https://urmeo.github.io/portfolio/">
   <meta property="og:image" content="https://urmeo.github.io/portfolio/assets/profile.jpeg">
   <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:title" content="urme | Machine Learning Engineer">
-  <meta name="twitter:description" content="Machine learning engineer and computational behavioural researcher.">
+  <meta name="twitter:title" content="urme | Behavioural Research &amp; Machine Learning">
+  <meta name="twitter:description" content="Behavioural researcher working with wearable signals, longitudinal data and machine learning.">
   <meta name="twitter:image" content="https://urmeo.github.io/portfolio/assets/profile.jpeg">
-  <title>urme | Machine Learning Engineer</title>
+  <title>urme | Behavioural Research &amp; Machine Learning</title>
   <link rel="icon" href="assets/brand-mark.svg" type="image/svg+xml">
   <link rel="apple-touch-icon" href="assets/brand-mark.svg">
   <link rel="preload" as="image" href="assets/profile.jpeg" fetchpriority="high">
@@ -68,7 +68,7 @@
           height="80"
           decoding="async"
         >
-        <span>Portfolio</span>
+        <span>urme <small>work &amp; research</small></span>
       </a>
       <button
         class="nav-toggle"
@@ -81,7 +81,7 @@
       </button>
       <nav class="site-nav" aria-label="Primary">
         <ul class="nav-list" id="site-nav">
-          <li><a href="#home" data-page-link="home">Home</a></li>
+          <li><a href="#home" data-page-link="home">Research</a></li>
           <li><a href="#education" data-page-link="education">Education</a></li>
           <li><a href="#about" data-page-link="about">About</a></li>
         </ul>
@@ -95,9 +95,24 @@
   </header>
 
   <main class="site-shell page-shell" id="content-root" tabindex="-1">
-    <section class="page-view" id="home" data-page="home" data-title="urme | Machine Learning Engineer">
+    <section class="page-view" id="home" data-page="home" data-title="urme | Behavioural Research &amp; Machine Learning">
       <div class="hero-block">
-        <aside class="hero-media">
+        <div class="hero-copy">
+          <p class="eyebrow">Behavioural research · Machine learning</p>
+          <h1>urme</h1>
+          <p class="hero-role">Behavioural researcher &amp; machine learning engineer.</p>
+          <p class="hero-bio">I study physiological and behavioural data through wearable stress benchmarks and longitudinal anxiety research. My applied projects also explore forecasting and document retrieval.</p>
+          <p class="hero-bio">
+            Thesis work at Centre Borelli, <a href="https://www.cnrs.fr/en" target="_blank" rel="noopener noreferrer">CNRS</a>, as part of
+            <a href="https://www.eacea.ec.europa.eu/scholarships/erasmus-mundus-catalogue_en" target="_blank" rel="noopener noreferrer">Erasmus Mundus</a> training.
+          </p>
+          <div class="hero-actions">
+            <button type="button" class="button button-primary" data-scroll-to="selected-work">Explore the research <span aria-hidden="true">↓</span></button>
+            <a class="button button-secondary" href="https://github.com/urmeo" target="_blank" rel="noopener noreferrer">Code on GitHub <span aria-hidden="true">↗</span></a>
+          </div>
+        </div>
+
+        <figure class="hero-media">
           <img
             src="assets/profile.jpeg"
             alt="Portrait of urme"
@@ -108,108 +123,110 @@
             width="1170"
             height="1344"
           >
-          <div class="profile-links" aria-label="Profile links">
-            <a href="https://github.com/urmeo" target="_blank" rel="noopener noreferrer" aria-label="GitHub profile" title="GitHub profile" class="plink plink--github">
-              <svg class="icon" viewBox="0 0 24 24" focusable="false">
-                <use href="#icon-github"></use>
-              </svg>
-            </a>
-            <a href="#home" aria-label="Back to top" title="Back to top" class="plink plink--home">
-              <svg class="icon" viewBox="0 0 24 24" focusable="false">
-                <use href="#icon-home"></use>
-              </svg>
-            </a>
-          </div>
-        </aside>
-
-        <div class="hero-copy">
-          <h1>urme</h1>
-          <p class="hero-role">Machine Learning Engineer</p>
-          <p class="hero-bio">Behavioural researcher working with wearable signals and longitudinal data.</p>
-          <p class="hero-bio">
-            <a href="https://www.cnrs.fr/en" target="_blank" rel="noopener noreferrer">CNRS</a> and
-            <a href="https://www.eacea.ec.europa.eu/scholarships/erasmus-mundus-catalogue_en" target="_blank" rel="noopener noreferrer">Erasmus Mundus</a>
-            training in multimodal sensing and predictive modelling.
-          </p>
-        </div>
+          <figcaption class="hero-caption">Research in multimodal sensing and behaviour.</figcaption>
+        </figure>
       </div>
 
       <hr class="section-divider">
 
-      <section class="content-section">
-        <h2>Selected Projects</h2>
+      <section class="content-section work-section" id="selected-work">
+        <div class="section-heading">
+          <p class="eyebrow">01 / Selected work</p>
+          <h2>Research &amp; selected projects</h2>
+          <p class="section-intro">Five projects across physiological sensing, forecasting and information tools, with methods, recorded results and their limits.</p>
+        </div>
 
         <article class="paper-entry">
-          <a class="paper-image-link" href="assets/project-calmsense.png" target="_blank" rel="noopener noreferrer"><img src="assets/project-calmsense.png" alt="CalmSense recorded subject-holdout accuracy from saved model metrics" class="paper-image" loading="lazy" decoding="async" width="1200" height="760"></a>
           <div class="paper-copy">
-            <h3 class="paper-title">CalmSense</h3>
-            <p class="paper-summary">Wearable stress benchmark.</p>
-            <ul class="project-facts">
-              <li>15 subjects · 58 saved features · LOSO.</li>
-              <li>RF binary accuracy 0.910, averaged across subjects.</li>
-              <li>Recorded benchmark; current code differs from its source.</li>
-            </ul>
-            <p class="paper-tags">WESAD · LOSO · SHAP · Calibration</p>
-            <p class="paper-links"><a href="https://github.com/urmeo/calm-sense" target="_blank" rel="noopener noreferrer" class="code-link">Code</a> <a href="https://github.com/urmeo/calm-sense/blob/2f29a3ee9d340754f1a66e6830e357621ab974bb/outputs/results/metrics.json" target="_blank" rel="noopener noreferrer" class="code-link">Source metrics</a> <a href="https://urmeo.github.io/calm-sense/" target="_blank" rel="noopener noreferrer" class="code-link">Demo</a></p>
-          </div>
-        </article>
-
-        <article class="paper-entry">
-          <a class="paper-image-link" href="assets/pulse.png" target="_blank" rel="noopener noreferrer"><img src="assets/pulse.png" alt="PulseShift 2024 held-out ROC curves" class="paper-image" loading="lazy" decoding="async" width="1400" height="600"></a>
-          <div class="paper-copy">
-            <h3 class="paper-title">PulseShift</h3>
-            <p class="paper-summary">Bike-share demand suppression forecast.</p>
-            <ul class="project-facts">
-              <li>26,288 panel hours; 2024 unweighted holdout AUROC 0.936, ECE 0.044.</li>
-              <li>Open-Meteo/CAMS; exclude heat index ≥103°F or AQI ≥150.</li>
-              <li>Individual activity and health benefits unmeasured.</li>
-            </ul>
-            <p class="paper-tags">Demand · Weather · AQI · Logistic</p>
-            <p class="paper-links"><a href="https://github.com/urmeo/pulse-shift" target="_blank" rel="noopener noreferrer" class="code-link">Code</a> <a href="https://github.com/urmeo/pulse-shift/blob/3a134ea45fb5b274cd5a959762b493c03319c455/outputs/tables/holdout_predictions.csv" target="_blank" rel="noopener noreferrer" class="code-link">Source predictions</a> <a href="https://urmeo.github.io/pulse-shift/" target="_blank" rel="noopener noreferrer" class="code-link">Demo</a></p>
-          </div>
-        </article>
-
-        <article class="paper-entry paper-entry-text">
-          <div class="paper-copy">
-            <h3 class="paper-title">NovaVision</h3>
-            <p class="paper-summary">Emotion conditioned image app.</p>
-            <ul class="project-facts">
-              <li>Text prompts → image generation → emotion scoring.</li>
-              <li>Original pilot images are missing; recovery results are unverified.</li>
-            </ul>
-            <p class="paper-tags">Affect · SD-Turbo · CLIP · Evaluation</p>
-            <p class="paper-links"><a href="https://github.com/urmeo/nova-vision" target="_blank" rel="noopener noreferrer" class="code-link">Code</a> <a href="https://youtu.be/S7LZsnMPOmA" target="_blank" rel="noopener noreferrer" class="code-link">Video</a></p>
-          </div>
-        </article>
-
-        <article class="paper-entry">
-          <a class="paper-image-link" href="assets/project-nexusrag.png" target="_blank" rel="noopener noreferrer"><img src="assets/project-nexusrag.png" alt="NexusRAG recorded SciFact 300 and NFCorpus 323-query retrieval results" class="paper-image" loading="lazy" decoding="async" width="1800" height="1050"></a>
-          <div class="paper-copy">
-            <h3 class="paper-title">NexusRAG</h3>
-            <p class="paper-summary">Local search and cited answers.</p>
-            <ul class="project-facts">
-              <li>PDF/DOCX/MD/TXT → LanceDB + BM25 → Ollama.</li>
-              <li>PRF once below 0.55 similarity; NLI optional.</li>
-              <li>Citation indices checked; claims need review.</li>
-            </ul>
-            <p class="paper-tags">RAG · LanceDB · BM25 · Ollama</p>
-            <p class="paper-links"><a href="https://github.com/urmeo/nexus-rag" target="_blank" rel="noopener noreferrer" class="code-link">Code</a> <a href="https://github.com/urmeo/nexus-rag/tree/d9478d9931fa27088f153cca64d87604c6f914f6/outputs/results" target="_blank" rel="noopener noreferrer" class="code-link">Source evaluations</a> <a href="https://youtu.be/AbSin2y_XEw" target="_blank" rel="noopener noreferrer" class="code-link">Video</a></p>
-          </div>
-        </article>
-
-        <article class="paper-entry">
-          <a class="paper-image-link" href="assets/project-multimodal.jpg" target="_blank" rel="noopener noreferrer"><img src="assets/project-multimodal.jpg" alt="Multimodal-Multisensor: participant wearing eye-tracking glasses during a data-collection session" class="paper-image" loading="lazy" decoding="async" width="1200" height="900"></a>
-          <div class="paper-copy">
+            <p class="project-kind">01 / Longitudinal research</p>
             <h3 class="paper-title">Multimodal-Multisensor</h3>
-            <p class="paper-summary">Longitudinal eye-tracking and HRV study.</p>
+            <p class="paper-summary">Studying anxiety over time through eye-tracking, cardiac signals and questionnaire responses.</p>
             <ul class="project-facts">
-              <li>Eye-tracking, cardiac and questionnaire recordings.</li>
-              <li>Session photograph preserved from the original study.</li>
-              <li>Released group summaries lack complete participant links.</li>
+              <li>Longitudinal eye-tracking and heart-rate variability (HRV) study.</li>
+              <li>Combines physiological recordings with psychometric assessment.</li>
             </ul>
             <p class="paper-tags">Longitudinal · Eye-tracking · HRV · ICC</p>
-            <p class="paper-links"><a href="https://github.com/urmeo/multimodal-multisensor" target="_blank" rel="noopener noreferrer" class="code-link">Code</a> <a href="https://urmeo.github.io/psychometric/en/index.html" target="_blank" rel="noopener noreferrer" class="code-link">Demo</a> <a href="https://www.icdvrat.com/2024/ICDVRAT2024-Proceedings.pdf#page=172" target="_blank" rel="noopener noreferrer" class="code-link">Paper</a></p>
+            <p class="paper-links"><a href="https://www.icdvrat.com/2024/ICDVRAT2024-Proceedings.pdf#page=172" target="_blank" rel="noopener noreferrer" class="code-link">Read paper</a> <a href="https://github.com/urmeo/multimodal-multisensor" target="_blank" rel="noopener noreferrer" class="code-link">Repository</a> <a href="https://urmeo.github.io/psychometric/en/index.html" target="_blank" rel="noopener noreferrer" class="code-link">Questionnaire demo</a></p>
+            <p class="project-note"><strong>Evidence note:</strong> Released group summaries lack complete participant links.</p>
           </div>
+          <figure class="project-media">
+            <a class="paper-image-link" href="assets/project-multimodal.jpg" target="_blank" rel="noopener noreferrer"><img src="assets/project-multimodal.jpg" alt="Multimodal-Multisensor: participant wearing eye-tracking glasses during a data-collection session" class="paper-image" loading="lazy" decoding="async" width="1200" height="900"></a>
+            <figcaption>A session photograph preserved from the original eye-tracking study.</figcaption>
+          </figure>
+        </article>
+
+        <article class="paper-entry">
+          <div class="paper-copy">
+            <p class="project-kind">02 / Wearable sensing</p>
+            <h3 class="paper-title">CalmSense</h3>
+            <p class="paper-summary">Stress recognition from wearable signals, evaluated on participants held out from training.</p>
+            <ul class="project-facts">
+              <li>WESAD: 15 subjects, 58 saved features and leave-one-subject-out (LOSO) evaluation.</li>
+              <li>Random forest binary accuracy: <strong>0.910</strong>, averaged across subjects.</li>
+            </ul>
+            <p class="paper-tags">WESAD · LOSO · SHAP · Calibration</p>
+            <p class="paper-links"><a href="https://github.com/urmeo/calm-sense" target="_blank" rel="noopener noreferrer" class="code-link">Repository</a> <a href="https://github.com/urmeo/calm-sense/blob/2f29a3ee9d340754f1a66e6830e357621ab974bb/outputs/results/metrics.json" target="_blank" rel="noopener noreferrer" class="code-link">Recorded metrics</a> <a href="https://urmeo.github.io/calm-sense/" target="_blank" rel="noopener noreferrer" class="code-link">Live demo</a></p>
+            <p class="project-note"><strong>Evidence note:</strong> Historical benchmark; current code differs from the version behind these recorded metrics.</p>
+          </div>
+          <figure class="project-media">
+            <a class="paper-image-link" href="assets/project-calmsense.png" target="_blank" rel="noopener noreferrer"><img src="assets/project-calmsense.png" alt="CalmSense recorded subject-holdout accuracy from saved model metrics" class="paper-image" loading="lazy" decoding="async" width="1200" height="760"></a>
+            <figcaption>Subject-holdout accuracy from recorded model metrics.</figcaption>
+          </figure>
+        </article>
+
+        <article class="paper-entry">
+          <div class="paper-copy">
+            <p class="project-kind">03 / Demand forecasting</p>
+            <h3 class="paper-title">PulseShift</h3>
+            <p class="paper-summary">Forecasting bike-share demand suppression using weather and air-quality data.</p>
+            <ul class="project-facts">
+              <li>26,288 panel hours; 2024 unweighted holdout AUROC <strong>0.936</strong>, ECE <strong>0.044</strong>.</li>
+              <li>Open-Meteo/CAMS; exclude heat index ≥103°F or AQI ≥150.</li>
+            </ul>
+            <p class="paper-tags">Demand · Weather · AQI · Logistic</p>
+            <p class="paper-links"><a href="https://github.com/urmeo/pulse-shift" target="_blank" rel="noopener noreferrer" class="code-link">Repository</a> <a href="https://github.com/urmeo/pulse-shift/blob/3a134ea45fb5b274cd5a959762b493c03319c455/outputs/tables/holdout_predictions.csv" target="_blank" rel="noopener noreferrer" class="code-link">Source predictions</a> <a href="https://urmeo.github.io/pulse-shift/" target="_blank" rel="noopener noreferrer" class="code-link">Live demo</a></p>
+            <p class="project-note"><strong>Evidence note:</strong> Individual activity and health benefits were not measured.</p>
+          </div>
+          <figure class="project-media">
+            <a class="paper-image-link" href="assets/pulse.png" target="_blank" rel="noopener noreferrer"><img src="assets/pulse.png" alt="PulseShift 2024 held-out ROC curves" class="paper-image" loading="lazy" decoding="async" width="1400" height="600"></a>
+            <figcaption>ROC curves from the 2024 held-out evaluation.</figcaption>
+          </figure>
+        </article>
+
+        <article class="paper-entry">
+          <div class="paper-copy">
+            <p class="project-kind">04 / Retrieval systems</p>
+            <h3 class="paper-title">NexusRAG</h3>
+            <p class="paper-summary">Search local documents and generate answers with source citations.</p>
+            <ul class="project-facts">
+              <li>PDF, DOCX, Markdown and text files → LanceDB + BM25 retrieval → Ollama.</li>
+              <li>Retrieval can expand once with pseudo-relevance feedback (PRF) below 0.55 similarity. Natural-language inference (NLI) is optional.</li>
+            </ul>
+            <p class="paper-tags">RAG · LanceDB · BM25 · Ollama</p>
+            <p class="paper-links"><a href="https://github.com/urmeo/nexus-rag" target="_blank" rel="noopener noreferrer" class="code-link">Repository</a> <a href="https://github.com/urmeo/nexus-rag/tree/d9478d9931fa27088f153cca64d87604c6f914f6/outputs/results" target="_blank" rel="noopener noreferrer" class="code-link">Recorded evaluations</a> <a href="https://youtu.be/AbSin2y_XEw" target="_blank" rel="noopener noreferrer" class="code-link">Watch demo</a></p>
+            <p class="project-note"><strong>Evidence note:</strong> Citation indices are checked; generated-answer accuracy was not measured, and claims still need review.</p>
+          </div>
+          <figure class="project-media">
+            <a class="paper-image-link" href="assets/project-nexusrag.png" target="_blank" rel="noopener noreferrer"><img src="assets/project-nexusrag.png" alt="NexusRAG recorded SciFact 300 and NFCorpus 323-query retrieval results" class="paper-image" loading="lazy" decoding="async" width="1800" height="1050"></a>
+            <figcaption>Recorded retrieval evaluations: SciFact (300 queries) and NFCorpus (323 queries).</figcaption>
+          </figure>
+        </article>
+
+        <article class="paper-entry">
+          <div class="paper-copy">
+            <p class="project-kind">05 / Generative exploration</p>
+            <h3 class="paper-title">NovaVision</h3>
+            <p class="paper-summary">An emotion-conditioned image prototype connecting text prompts, image generation and emotion scoring.</p>
+            <p class="paper-tags">Affect · SD-Turbo · CLIP · Evaluation</p>
+            <p class="paper-links"><a href="https://github.com/urmeo/nova-vision" target="_blank" rel="noopener noreferrer" class="code-link">Repository</a> <a href="https://youtu.be/S7LZsnMPOmA" target="_blank" rel="noopener noreferrer" class="code-link">Watch demo</a></p>
+            <p class="project-note"><strong>Evidence note:</strong> Original pilot images are missing; recovery results are unverified.</p>
+          </div>
+          <figure class="project-media project-pipeline">
+            <div class="pipeline-step"><span>Prompt</span><strong>Text input</strong></div>
+            <div class="pipeline-step"><span>Generate</span><strong>SD-Turbo</strong></div>
+            <div class="pipeline-step"><span>Evaluate</span><strong>Emotion scoring</strong></div>
+            <figcaption>Prototype workflow</figcaption>
+          </figure>
         </article>
 
       </section>
@@ -217,10 +234,13 @@
       <hr class="section-divider">
 
       <section class="content-section service-section">
-        <h2>Academic Services</h2>
+        <div class="section-heading">
+          <p class="eyebrow">Research community</p>
+          <h2>Academic reviewing</h2>
+        </div>
         <ul class="service-list">
-          <li><strong>Conference Reviewer:</strong> CYPSY 2023, ICASSP 2026</li>
-          <li><strong>Journal Reviewer:</strong> IEEE</li>
+          <li><strong>Conference reviewing:</strong> CYPSY 2023, ICASSP 2026</li>
+          <li><strong>Journal reviewing:</strong> IEEE</li>
         </ul>
       </section>
 
@@ -228,7 +248,9 @@
 
     <section class="page-view" id="education" data-page="education" data-title="urme | Education" hidden>
       <section class="page-title">
+        <p class="eyebrow">02 / Background</p>
         <h1>Education</h1>
+        <p class="page-intro">An engineering foundation, followed by Erasmus Mundus training in behavioural research and digital therapy.</p>
       </section>
 
       <section class="record-list">
@@ -245,7 +267,11 @@
           </div>
           <div class="record-copy">
             <h2 lang="fr">Université Paris Cité</h2>
-            <p class="record-role">M.Sc. in Cyberspace, Behavior and E-Therapy</p>
+            <p class="record-role">M.Sc. in Cyberspace, Behavior and E-Therapy · Erasmus Mundus Joint Master</p>
+            <div class="record-meta">
+              <p>Paris, France</p>
+              <p>Sep 2022 – Sep 2024</p>
+            </div>
             <ul>
               <li>Fully funded by the European Commission</li>
               <li>Degree: Computer Science, Psychology</li>
@@ -254,10 +280,6 @@
               <li>Thesis: <a href="https://www.icdvrat.com/2024/ICDVRAT2024-Proceedings.pdf#page=172" target="_blank" rel="noopener noreferrer">Longitudinal Analysis of Neurophysiological Correlates of Anxiety During Psychometric Assessment</a></li>
               <li>Lab: <a href="https://centreborelli.ens-paris-saclay.fr/en/welcome-centre-borelli" target="_blank" rel="noopener noreferrer">Centre Borelli, CNRS</a></li>
             </ul>
-          </div>
-          <div class="record-meta">
-            <p>Paris, France</p>
-            <p>Sep 2022 – Sep 2024</p>
           </div>
         </article>
 
@@ -274,15 +296,16 @@
           </div>
           <div class="record-copy">
             <h2>University of Barcelona</h2>
-            <p class="record-role">M.Sc. in Cyberspace, Behavior and E-Therapy · Erasmus Mundus Joint Master</p>
+            <p class="record-role">Study period within the Erasmus Mundus Joint Master</p>
+            <div class="record-meta">
+              <p>Barcelona, Spain</p>
+              <p>Sep 2023 – Jan 2024</p>
+            </div>
             <ul>
+              <li>Part of the same M.Sc. in Cyberspace, Behavior and E-Therapy programme</li>
               <li>Fully funded by the European Commission</li>
               <li>Studied behavioural intervention design and digital behaviour research</li>
             </ul>
-          </div>
-          <div class="record-meta">
-            <p>Barcelona, Spain</p>
-            <p>Sep 2023 – Jan 2024</p>
           </div>
         </article>
 
@@ -300,6 +323,10 @@
           <div class="record-copy">
             <h2>Bangladesh University of Professionals</h2>
             <p class="record-role">B.Sc. in Information &amp; Communication Engineering</p>
+            <div class="record-meta">
+              <p>Dhaka, Bangladesh</p>
+              <p>Jan 2015 – Jan 2019</p>
+            </div>
             <ul>
               <li>CGPA: 3.58/4.00 (80.7/100), First Class</li>
               <li>Final 80 credits: 3.75/4.00 (87.0/100)</li>
@@ -309,17 +336,16 @@
               <li>Lab: <a href="https://du.ac.bd/index.php/reFDetails/dept/5/84" target="_blank" rel="noopener noreferrer">FAB LAB DU</a></li>
             </ul>
           </div>
-          <div class="record-meta">
-            <p>Dhaka, Bangladesh</p>
-            <p>Jan 2015 – Jan 2019</p>
-          </div>
         </article>
       </section>
 
       <hr class="section-divider">
 
       <section class="content-section skills-section">
-        <h2>Skills</h2>
+        <div class="section-heading">
+          <p class="eyebrow">Tools &amp; languages</p>
+          <h2>Skills</h2>
+        </div>
         <div class="skills-grid">
           <div class="skill-row">
             <span class="skill-label">Programming &amp; Tools</span>
@@ -339,7 +365,10 @@
       <hr class="section-divider">
 
       <section class="content-section awards-section">
-        <h2>Awards &amp; Honors</h2>
+        <div class="section-heading">
+          <p class="eyebrow">Recognition</p>
+          <h2>Awards &amp; honors</h2>
+        </div>
         <div class="awards-copy">
           <p>Erasmus Mundus Joint Masters Scholarship, European Commission, 2022</p>
           <p>Semi-Finalist, Crossroads Emerging Leaders Program, Harvard University, 2021</p>
@@ -351,44 +380,70 @@
 
     <section class="page-view" id="about" data-page="about" data-title="urme | About" hidden>
       <section class="page-title">
-        <h1>About Me</h1>
+        <p class="eyebrow">03 / Perspective</p>
+        <h1>About &amp; approach</h1>
+        <p class="page-intro">My work sits between behavioural research and machine learning, with an interest in physiological sensing, longitudinal assessment and evidence that can be inspected.</p>
       </section>
 
-      <section class="content-section venn-section">
-        <div class="venn-pair">
-          <div class="venn-item">
-            <h2>Research Interests</h2>
-            <div class="venn-img">
-              <img
-                src="assets/research-interests.png"
-                alt="Venn diagram of Computational Neuroscience, Cognitive Science and Artificial Intelligence research interests"
-                loading="lazy"
-                decoding="async"
-                width="928"
-                height="634"
-              >
-            </div>
-          </div>
-          <div class="venn-item">
-            <h2>My Approach</h2>
-            <div class="venn-img">
-              <img
-                src="assets/approach.svg"
-                alt="Workflow: signals, responses and documents → keyed scoring, held-out models and retrieval → score ranges, curves and sources"
-                loading="lazy"
-                decoding="async"
-                width="960"
-                height="420"
-              >
-            </div>
-          </div>
+      <section class="content-section research-section">
+        <div class="section-heading">
+          <p class="eyebrow">Questions I return to</p>
+          <h2>Research interests</h2>
+        </div>
+        <div class="research-grid">
+          <article class="research-area">
+            <span class="research-number" aria-hidden="true">01</span>
+            <h3>Computational neuroscience</h3>
+            <p>How do eye-tracking and cardiac signals vary across participants and psychometric assessments?</p>
+          </article>
+          <article class="research-area">
+            <span class="research-number" aria-hidden="true">02</span>
+            <h3>Cognitive science</h3>
+            <p>How can questionnaire responses and behavioural measures help study anxiety over time?</p>
+          </article>
+          <article class="research-area">
+            <span class="research-number" aria-hidden="true">03</span>
+            <h3>Artificial intelligence</h3>
+            <p>How can predictive models and retrieval systems be evaluated with held-out data and inspectable sources?</p>
+          </article>
+        </div>
+      </section>
+
+      <hr class="section-divider">
+
+      <section class="content-section approach-section">
+        <div class="section-heading">
+          <p class="eyebrow">From inputs to evidence</p>
+          <h2>My approach</h2>
+          <p class="section-intro">The method depends on the question. The output should make the result and its limits clear.</p>
+        </div>
+        <div class="approach-grid">
+          <article class="approach-step">
+            <p class="eyebrow">01 / Inputs</p>
+            <h3>Signals, responses &amp; documents</h3>
+            <p>Start with physiological recordings, questionnaire responses or local documents.</p>
+          </article>
+          <article class="approach-step">
+            <p class="eyebrow">02 / Methods</p>
+            <h3>Scoring, models &amp; retrieval</h3>
+            <p>Use keyed scoring, held-out model evaluation or document retrieval, according to the task.</p>
+          </article>
+          <article class="approach-step">
+            <p class="eyebrow">03 / Evidence</p>
+            <h3>Ranges, curves &amp; sources</h3>
+            <p>Present score ranges, evaluation curves and sources. Keep historical benchmarks and data limits explicit; review generated claims.</p>
+          </article>
         </div>
       </section>
 
       <hr class="section-divider">
 
       <section class="content-section sdg-section">
-        <h2>Research and the UN Sustainable Development Goals</h2>
+        <div class="section-heading">
+          <p class="eyebrow">Wider interests</p>
+          <h2>Research themes</h2>
+          <p class="section-intro">Health, innovation and climate are areas of interest connected to these UN Sustainable Development Goals.</p>
+        </div>
         <div class="sdg-list">
 
           <div class="sdg-item">
@@ -437,7 +492,10 @@
       <hr class="section-divider">
 
       <section class="content-section hobbies-section">
-        <h2>Hobbies</h2>
+        <div class="section-heading">
+          <p class="eyebrow">Away from the work</p>
+          <h2>Personal interests</h2>
+        </div>
         <div class="hobby-grid">
 
           <div class="hobby-card">
@@ -500,6 +558,7 @@
   </main>
 
   <footer class="site-shell page-footer">
+    <p class="footer-note">Research, methods and experiments. <a href="https://github.com/urmeo" target="_blank" rel="noopener noreferrer">Find my work on GitHub <span aria-hidden="true">↗</span></a></p>
     <p>&copy; <span data-year></span> urme. All rights reserved.</p>
   </footer>
 
