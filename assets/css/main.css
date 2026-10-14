@@ -420,8 +420,7 @@ h2 {
   margin-bottom: 0.65rem;
 }
 
-.section-heading h2,
-.content-section > h2 {
+.section-heading h2 {
   font-size: clamp(1.9rem, 3.2vw, 2.7rem);
   letter-spacing: -0.035em;
 }
@@ -1035,10 +1034,6 @@ h2 {
     font-size: 2rem;
   }
 
-  .record-entry {
-    grid-template-columns: 100px minmax(0, 1fr);
-  }
-
   .record-copy {
     grid-template-columns: minmax(0, 1fr);
   }
@@ -1159,11 +1154,6 @@ h2 {
     padding: 2.5rem 0 2.75rem;
   }
 
-  .hero-copy {
-    grid-column: 1;
-    grid-row: 1;
-  }
-
   .hero-copy h1 {
     font-size: 5.5rem;
   }
@@ -1196,10 +1186,6 @@ h2 {
     grid-row: 2;
   }
 
-  .profile-photo {
-    aspect-ratio: 4 / 5;
-  }
-
   .hero-caption {
     margin: 0;
     max-width: 21ch;
@@ -1217,8 +1203,7 @@ h2 {
     margin-bottom: 1.75rem;
   }
 
-  .section-heading h2,
-  .content-section > h2 {
+  .section-heading h2 {
     font-size: 2rem;
   }
 
@@ -1234,11 +1219,6 @@ h2 {
     grid-template-columns: minmax(0, 1fr);
     gap: 1.8rem;
     padding: 2.5rem 0;
-  }
-
-  .paper-copy {
-    grid-row: 1;
-    grid-column: 1;
   }
 
   .project-media {
