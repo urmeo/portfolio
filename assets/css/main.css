@@ -369,8 +369,8 @@ h2 { text-wrap: balance; }
   a[href]::after { content: " (" attr(href) ")"; font-size: 0.78em; color: #000 !important; }
   a[href^="#"]::after,
   a[href^="mailto:"]::after,
-  .code-link::after,
-  .paper-image-link::after { content: none; }
+  a.code-link[href]::after,
+  a.paper-image-link[href]::after { content: none; }
   .paper-entry,
   .record-entry,
   .hobby-card,
@@ -389,13 +389,16 @@ h2 { text-wrap: balance; }
   .pipeline-step { padding-block: 0.8rem; grid-template-columns: 60px minmax(0, 1fr); }
   .pipeline-step strong { font-size: 13pt; }
   .record-entry { grid-template-columns: 90px minmax(0, 1fr); gap: 20px; padding-block: 1.2rem; }
-  .record-copy { display: block; }
+  .record-logo { grid-column: 1; grid-row: 1; }
+  .record-copy { display: block; grid-column: 2; grid-row: 1; }
   .record-copy h2 { font-size: 17pt; }
   .record-copy .record-role { margin-bottom: 0.5rem; }
   .record-meta { margin-bottom: 0.8rem; text-align: left; }
   .record-meta p { display: inline; }
   .record-meta p + p::before { content: " · "; }
   .record-logo img { padding: 0; }
+  .skill-row { grid-template-columns: 180px minmax(0, 1fr); gap: 18px; }
+  .sdg-list { grid-template-columns: repeat(3, minmax(0, 1fr)); }
   .research-grid,
   .approach-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 18px; }
   .research-area h3,
