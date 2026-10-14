@@ -401,6 +401,8 @@ h2 {
   letter-spacing: 0.01em;
 }
 
+.hero-bio a,
+.record-copy a,
 .paper-links a {
   text-decoration: underline;
 }
