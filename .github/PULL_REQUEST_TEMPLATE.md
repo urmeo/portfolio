@@ -4,10 +4,11 @@ What this change does and why.
 
 ## Checklist
 
-- [ ] Checked in both light and dark themes
-- [ ] Checked at a narrow width as well as desktop
-- [ ] Still plain HTML, CSS, and JavaScript: no framework, no build step
-- [ ] Links and images resolve
+- [ ] Checked affected pages in light and dark themes at desktop and mobile widths
+- [ ] Checked links, images, keyboard navigation and visible focus
+- [ ] Browser checks report zero failures with normal and reduced motion
+- [ ] Checked print preview for layout or style changes
+- [ ] Kept plain HTML, CSS and JavaScript with no build step
 
 ## Notes
 
