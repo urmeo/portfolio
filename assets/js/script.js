@@ -1,267 +1,327 @@
-const navToggle = document.querySelector(".nav-toggle");
-const navList = document.querySelector(".nav-list");
+const navigationToggle = document.querySelector(".nav-toggle");
+const navigationList = document.querySelector(".nav-list");
 const siteHeader = document.querySelector(".site-header");
-const pageLinks = document.querySelectorAll("[data-page-link]");
+const navigationLinks = document.querySelectorAll("[data-page-link]");
 const pageViews = Array.from(document.querySelectorAll(".page-view"));
 
 const DEFAULT_PAGE = "home";
-const MOBILE_BP = 760;
-const HEADER_SCROLL = 48;
-const motionQuery = window.matchMedia("(prefers-reduced-motion: reduce)");
+const MOBILE_BREAKPOINT = 760;
+const HEADER_SCROLL_THRESHOLD = 48;
+const reducedMotionQuery = window.matchMedia("(prefers-reduced-motion: reduce)");
 
-const pageMap = new Map(pageViews.map(v => [v.dataset.page, v]));
-let transitionTimer = null;
-let transitionFrame = null;
-let routeRevision = 0;
+const pagesByName = new Map(pageViews.map(pageView => [pageView.dataset.page, pageView]));
+let transitionTimeout = null;
+let focusAnimationFrame = null;
+let navigationRevision = 0;
 
-if ("scrollRestoration" in history) history.scrollRestoration = "manual";
-
-function setNavState(open) {
-  if (!navToggle || !navList) return;
-  navList.classList.toggle("is-open", open);
-  navToggle.setAttribute("aria-expanded", String(open));
-  navToggle.setAttribute("aria-label", open ? "Close navigation" : "Open navigation");
+if ("scrollRestoration" in history) {
+  history.scrollRestoration = "manual";
 }
 
-const isNavOpen = () => navList?.classList.contains("is-open") ?? false;
-const closeNav = () => setNavState(false);
+function setNavigationOpen(isOpen) {
+  if (!navigationToggle || !navigationList) return;
+  navigationList.classList.toggle("is-open", isOpen);
+  navigationToggle.setAttribute("aria-expanded", String(isOpen));
+  navigationToggle.setAttribute("aria-label", isOpen ? "Close navigation" : "Open navigation");
+}
+
+const isNavigationOpen = () => navigationList?.classList.contains("is-open") ?? false;
+const closeNavigation = () => setNavigationOpen(false);
 
 function initNavigation() {
-  if (!navToggle || !navList) return;
+  if (!navigationToggle || !navigationList) return;
 
-  navToggle.addEventListener("click", () => setNavState(!isNavOpen()));
+  navigationToggle.addEventListener("click", () => setNavigationOpen(!isNavigationOpen()));
 
-  pageLinks.forEach(link => link.addEventListener("click", closeNav));
+  navigationLinks.forEach(link => link.addEventListener("click", closeNavigation));
 
-  document.addEventListener("click", e => {
-    if (e.defaultPrevented || e.button !== 0 || e.metaKey || e.ctrlKey || e.shiftKey || e.altKey) return;
-    const link = e.target instanceof Element ? e.target.closest('a[href^="#"]') : null;
+  document.addEventListener("click", event => {
+    if (
+      event.defaultPrevented ||
+      event.button !== 0 ||
+      event.metaKey || event.ctrlKey || event.shiftKey || event.altKey
+    ) return;
+
+    const link = event.target instanceof Element ? event.target.closest('a[href^="#"]') : null;
     const hash = link?.getAttribute("href");
-    if (!hash || !pageMap.has(hash.slice(1)) || hash !== window.location.hash) return;
-    e.preventDefault();
+    if (!hash || !pagesByName.has(hash.slice(1)) || hash !== window.location.hash) return;
+
+    event.preventDefault();
     syncPage({ scrollToTop: true });
   });
 
-  document.querySelector(".skip-link")?.addEventListener("click", e => {
-    const content = document.querySelector("#content-root");
-    if (!content) return;
-    e.preventDefault();
-    closeNav();
-    content.focus({ preventScroll: true });
-    content.scrollIntoView({ behavior: "instant", block: "start" });
+  document.querySelector(".skip-link")?.addEventListener("click", event => {
+    const mainContent = document.querySelector("#content-root");
+    if (!mainContent) return;
+
+    event.preventDefault();
+    closeNavigation();
+    mainContent.focus({ preventScroll: true });
+    mainContent.scrollIntoView({ behavior: "instant", block: "start" });
   });
 
-  document.addEventListener("click", e => {
-    if (isNavOpen() && e.target instanceof Element && !e.target.closest(".site-header")) {
-      closeNav();
+  document.addEventListener("click", event => {
+    if (
+      isNavigationOpen() &&
+      event.target instanceof Element &&
+      !event.target.closest(".site-header")
+    ) {
+      closeNavigation();
     }
   });
 
-  document.addEventListener("keydown", e => {
-    if (e.key === "Escape" && isNavOpen()) {
-      closeNav();
-      navToggle.focus();
+  document.addEventListener("keydown", event => {
+    if (event.key === "Escape" && isNavigationOpen()) {
+      closeNavigation();
+      navigationToggle.focus();
     }
   });
 
   window.addEventListener("resize", () => {
-    if (window.innerWidth > MOBILE_BP) closeNav();
+    if (window.innerWidth > MOBILE_BREAKPOINT) closeNavigation();
   });
 }
 
 function getPageFromHash(hash = window.location.hash) {
-  const page = hash.replace("#", "").trim();
-  return pageMap.has(page) ? page : DEFAULT_PAGE;
+  const pageName = hash.replace("#", "").trim();
+  return pagesByName.has(pageName) ? pageName : DEFAULT_PAGE;
 }
 
-function syncHash(page) {
-  const next = `#${page}`;
-  if (window.location.hash !== next) history.replaceState(null, "", next);
+function syncHash(pageName) {
+  const nextHash = `#${pageName}`;
+  if (window.location.hash !== nextHash) {
+    history.replaceState(null, "", nextHash);
+  }
 }
 
-function focusPageHeading(view) {
-  const heading = view.querySelector("h1, h2");
+function focusFirstHeading(container) {
+  const heading = container.querySelector("h1, h2");
   if (!heading || document.activeElement === heading) return;
+
   heading.setAttribute("tabindex", "-1");
   heading.focus({ preventScroll: true });
   heading.addEventListener("blur", () => heading.removeAttribute("tabindex"), { once: true });
 }
 
-function initWorkJump() {
+function initSectionNavigation() {
   document.querySelectorAll("[data-scroll-to]").forEach(button => {
     button.addEventListener("click", () => {
       const section = document.getElementById(button.dataset.scrollTo);
       if (!section) return;
-      focusPageHeading(section);
-      section.scrollIntoView({ behavior: motionQuery.matches ? "auto" : "smooth", block: "start" });
+
+      focusFirstHeading(section);
+      section.scrollIntoView({
+        behavior: reducedMotionQuery.matches ? "auto" : "smooth",
+        block: "start"
+      });
     });
   });
 }
 
-function setActivePage(page, { scrollToTop = false, animate = true, focus = true } = {}) {
-  const incoming = pageMap.get(page);
-  if (!incoming) return;
+function setActivePage(pageName, { scrollToTop = false, animate = true, focus = true } = {}) {
+  const incomingPage = pagesByName.get(pageName);
+  if (!incomingPage) return;
 
-  const outgoing = pageViews.find(v => !v.hidden);
+  const outgoingPage = pageViews.find(pageView => !pageView.hidden);
+  const transitionRevision = ++navigationRevision;
 
-  const revision = ++routeRevision;
-  if (transitionTimer !== null) {
-    clearTimeout(transitionTimer);
-    transitionTimer = null;
+  if (transitionTimeout !== null) {
+    clearTimeout(transitionTimeout);
+    transitionTimeout = null;
   }
-  if (transitionFrame !== null) {
-    cancelAnimationFrame(transitionFrame);
-    transitionFrame = null;
+  if (focusAnimationFrame !== null) {
+    cancelAnimationFrame(focusAnimationFrame);
+    focusAnimationFrame = null;
   }
-  pageMap.forEach(v => v.classList.remove("page-out", "page-in"));
+  pagesByName.forEach(pageView => pageView.classList.remove("page-out", "page-in"));
 
-  pageLinks.forEach(link => {
-    if (link.dataset.pageLink === page) {
+  navigationLinks.forEach(link => {
+    if (link.dataset.pageLink === pageName) {
       link.setAttribute("aria-current", "page");
     } else {
       link.removeAttribute("aria-current");
     }
   });
-  if (incoming.dataset.title) document.title = incoming.dataset.title;
+  if (incomingPage.dataset.title) {
+    document.title = incomingPage.dataset.title;
+  }
 
-  if (!outgoing || outgoing === incoming) {
-    pageMap.forEach((v, name) => { v.hidden = name !== page; });
+  if (!outgoingPage || outgoingPage === incomingPage) {
+    pagesByName.forEach((pageView, name) => {
+      pageView.hidden = name !== pageName;
+    });
     if (scrollToTop) {
       window.scrollTo({ top: 0, behavior: "instant" });
-      if (focus) focusPageHeading(incoming);
+      if (focus) focusFirstHeading(incomingPage);
     }
     return;
   }
 
-  const showPage = () => {
-    if (revision !== routeRevision) return;
-    pageMap.forEach((v, name) => {
-      v.hidden = name !== page;
-      v.classList.remove("page-out", "page-in");
+  const showIncomingPage = () => {
+    if (transitionRevision !== navigationRevision) return;
+
+    pagesByName.forEach((pageView, name) => {
+      pageView.hidden = name !== pageName;
+      pageView.classList.remove("page-out", "page-in");
     });
-    if (scrollToTop) window.scrollTo({ top: 0, behavior: "instant" });
-    const focusHeading = () => {
-      if (revision !== routeRevision || incoming.hidden) return;
-      transitionFrame = null;
-      if (focus) focusPageHeading(incoming);
+    if (scrollToTop) {
+      window.scrollTo({ top: 0, behavior: "instant" });
+    }
+
+    const focusIncomingHeading = () => {
+      if (transitionRevision !== navigationRevision || incomingPage.hidden) return;
+
+      focusAnimationFrame = null;
+      if (focus) focusFirstHeading(incomingPage);
     };
-    if (animate && !motionQuery.matches) {
-      incoming.classList.add("page-in");
-      incoming.addEventListener("animationend", e => {
-        if (e.target === incoming && revision === routeRevision) incoming.classList.remove("page-in");
+
+    if (animate && !reducedMotionQuery.matches) {
+      incomingPage.classList.add("page-in");
+      incomingPage.addEventListener("animationend", event => {
+        if (event.target === incomingPage && transitionRevision === navigationRevision) {
+          incomingPage.classList.remove("page-in");
+        }
       }, { once: true });
-      transitionFrame = requestAnimationFrame(focusHeading);
-    } else focusHeading();
-    transitionTimer = null;
+      focusAnimationFrame = requestAnimationFrame(focusIncomingHeading);
+    } else {
+      focusIncomingHeading();
+    }
+    transitionTimeout = null;
   };
-  if (animate && !motionQuery.matches) {
-    outgoing.classList.add("page-out");
-    transitionTimer = setTimeout(showPage, 140);
-  } else showPage();
+
+  if (animate && !reducedMotionQuery.matches) {
+    outgoingPage.classList.add("page-out");
+    transitionTimeout = setTimeout(showIncomingPage, 140);
+  } else {
+    showIncomingPage();
+  }
 }
 
-function syncPage({ scrollToTop = false, animate = true, focus = true } = {}) {
-  const page = getPageFromHash();
-  syncHash(page);
-  setActivePage(page, { scrollToTop, animate, focus });
-  closeNav();
+function syncPage(options = {}) {
+  const pageName = getPageFromHash();
+  syncHash(pageName);
+  setActivePage(pageName, options);
+  closeNavigation();
 }
 
-function initHeader() {
+function initHeaderScrollState() {
   if (!siteHeader) return;
-  const sync = () => siteHeader.classList.toggle("is-scrolled", window.scrollY > HEADER_SCROLL);
-  sync();
-  window.addEventListener("scroll", sync, { passive: true });
+
+  const syncHeaderState = () => {
+    siteHeader.classList.toggle("is-scrolled", window.scrollY > HEADER_SCROLL_THRESHOLD);
+  };
+  syncHeaderState();
+  window.addEventListener("scroll", syncHeaderState, { passive: true });
 }
 
-function initYear() {
-  document.querySelectorAll("[data-year]").forEach(el => {
-    el.textContent = new Date().getFullYear();
+function initCopyrightYear() {
+  document.querySelectorAll("[data-year]").forEach(yearElement => {
+    yearElement.textContent = new Date().getFullYear();
   });
 }
 
-const THEME_KEY = "theme";
-const darkQuery = window.matchMedia("(prefers-color-scheme: dark)");
+const THEME_STORAGE_KEY = "theme";
+const darkThemeQuery = window.matchMedia("(prefers-color-scheme: dark)");
 
 function readStoredTheme() {
   try {
-    const value = localStorage.getItem(THEME_KEY);
-    return value === "dark" || value === "light" ? value : null;
+    const storedTheme = localStorage.getItem(THEME_STORAGE_KEY);
+    return storedTheme === "dark" || storedTheme === "light" ? storedTheme : null;
   } catch {
     return null;
   }
 }
 
 function initThemeToggle() {
-  const btn = document.querySelector(".theme-toggle");
-  let choice = readStoredTheme();
+  const themeToggle = document.querySelector(".theme-toggle");
+  let selectedTheme = readStoredTheme();
 
-  function applyTheme(dark, persist) {
-    document.documentElement.classList.toggle("dark-mode", dark);
-    document.documentElement.style.colorScheme = dark ? "dark" : "light";
-    if (btn) {
-      const label = dark ? "Switch to light mode" : "Switch to dark mode";
-      btn.setAttribute("aria-label", label);
-      btn.title = label;
-      const use = btn.querySelector("use");
-      if (use) use.setAttribute("href", dark ? "#icon-sun" : "#icon-moon");
+  function applyTheme(isDark, persistChoice) {
+    const themeName = isDark ? "dark" : "light";
+    document.documentElement.classList.toggle("dark-mode", isDark);
+    document.documentElement.style.colorScheme = themeName;
+
+    if (themeToggle) {
+      const label = isDark ? "Switch to light mode" : "Switch to dark mode";
+      themeToggle.setAttribute("aria-label", label);
+      themeToggle.title = label;
+      const iconReference = themeToggle.querySelector("use");
+      if (iconReference) {
+        iconReference.setAttribute("href", isDark ? "#icon-sun" : "#icon-moon");
+      }
     }
-    if (persist) {
-      choice = dark ? "dark" : "light";
+
+    if (persistChoice) {
+      selectedTheme = themeName;
       try {
-        localStorage.setItem(THEME_KEY, choice);
-      } catch { }
+        localStorage.setItem(THEME_STORAGE_KEY, selectedTheme);
+      } catch {
+        // Keep the explicit choice in this tab when saving is blocked.
+      }
     }
   }
 
-  applyTheme(choice ? choice === "dark" : darkQuery.matches, false);
+  applyTheme(selectedTheme ? selectedTheme === "dark" : darkThemeQuery.matches, false);
 
-  btn?.addEventListener("click", () => {
+  themeToggle?.addEventListener("click", () => {
     applyTheme(!document.documentElement.classList.contains("dark-mode"), true);
   });
 
-  if (typeof darkQuery.addEventListener === "function") {
-    darkQuery.addEventListener("change", e => {
-      if (!choice) applyTheme(e.matches, false);
+  if (typeof darkThemeQuery.addEventListener === "function") {
+    darkThemeQuery.addEventListener("change", event => {
+      if (!selectedTheme) applyTheme(event.matches, false);
     });
   }
-  window.addEventListener("storage", e => {
-    if (e.key !== THEME_KEY && e.key !== null) return;
+  window.addEventListener("storage", event => {
+    if (event.key !== THEME_STORAGE_KEY && event.key !== null) return;
+
     try {
-      if (e.storageArea && e.storageArea !== localStorage) return;
-    } catch { return; }
-    choice = e.newValue === "dark" || e.newValue === "light" ? e.newValue : null;
-    applyTheme(choice ? choice === "dark" : darkQuery.matches, false);
+      if (event.storageArea && event.storageArea !== localStorage) return;
+    } catch {
+      return;
+    }
+
+    selectedTheme = event.newValue === "dark" || event.newValue === "light" ? event.newValue : null;
+    applyTheme(selectedTheme ? selectedTheme === "dark" : darkThemeQuery.matches, false);
   });
 }
 
-function initScrollToTop() {
-  const btn = document.createElement("button");
-  btn.type = "button";
-  btn.className = "scroll-top";
-  btn.setAttribute("aria-label", "Back to top");
-  btn.innerHTML = `<svg viewBox="0 0 24 24" fill="none" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><polyline points="18 15 12 9 6 15"/></svg>`;
-  document.body.appendChild(btn);
+function initBackToTop() {
+  const backToTopButton = document.createElement("button");
+  backToTopButton.type = "button";
+  backToTopButton.className = "scroll-top";
+  backToTopButton.setAttribute("aria-label", "Back to top");
+  backToTopButton.innerHTML = `
+    <svg viewBox="0 0 24 24" fill="none" stroke-width="2.5" stroke-linecap="round"
+      stroke-linejoin="round" aria-hidden="true" focusable="false">
+      <polyline points="18 15 12 9 6 15"/>
+    </svg>`;
+  document.body.appendChild(backToTopButton);
 
-  const sync = () => {
-    btn.classList.toggle("scroll-top--visible", window.scrollY > 500);
+  const syncButtonVisibility = () => {
+    backToTopButton.classList.toggle("scroll-top--visible", window.scrollY > 500);
   };
-  sync();
-  window.addEventListener("scroll", sync, { passive: true });
+  syncButtonVisibility();
+  window.addEventListener("scroll", syncButtonVisibility, { passive: true });
 
-  btn.addEventListener("click", () => window.scrollTo({ top: 0, behavior: motionQuery.matches ? "auto" : "smooth" }));
+  backToTopButton.addEventListener("click", () => {
+    window.scrollTo({
+      top: 0,
+      behavior: reducedMotionQuery.matches ? "auto" : "smooth"
+    });
+  });
 }
 
 window.addEventListener("hashchange", () => syncPage({ scrollToTop: true }));
-motionQuery.addEventListener("change", e => {
-  if (e.matches) syncPage({ animate: false });
+reducedMotionQuery.addEventListener("change", event => {
+  if (event.matches) syncPage({ animate: false });
 });
 
-setNavState(false);
+setNavigationOpen(false);
 initThemeToggle();
 initNavigation();
-initWorkJump();
-initHeader();
-initYear();
-initScrollToTop();
+initSectionNavigation();
+initHeaderScrollState();
+initCopyrightYear();
+initBackToTop();
 syncPage({ scrollToTop: true, animate: false, focus: false });
