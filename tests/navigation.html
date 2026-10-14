@@ -169,6 +169,19 @@ frame.addEventListener("load", async () => {
       "Clicking the current route must focus its heading after closing navigation");
     win.scrollTo = scrollTo;
 
+    const selectedWork = doc.querySelector("#selected-work");
+    const scrollIntoView = selectedWork.scrollIntoView;
+    let workScroll = null;
+    selectedWork.scrollIntoView = options => { workScroll = options; };
+    doc.querySelector("[data-scroll-to='selected-work']").click();
+    assert(doc.activeElement === selectedWork.querySelector("h2"),
+      "Exploring research must focus the selected-work heading");
+    assert(workScroll?.behavior === (win.matchMedia("(prefers-reduced-motion: reduce)").matches ? "auto" : "smooth"),
+      "Exploring research must respect the reduced-motion preference");
+    assert(win.location.hash === "#home" && visiblePages()[0].dataset.page === "home",
+      "Exploring research must preserve the current route");
+    selectedWork.scrollIntoView = scrollIntoView;
+
     const callbacks = [];
     const requestFrame = win.requestAnimationFrame;
     const cancelFrame = win.cancelAnimationFrame;
@@ -194,6 +207,10 @@ frame.addEventListener("load", async () => {
       const skip = win.getComputedStyle(doc.querySelector(".skip-link"));
       assert(contrast(skip.color, skip.backgroundColor) >= 4.5,
         `${dark ? "Dark" : "Light"} skip-link text must have readable contrast`);
+      const proseLinks = [...doc.querySelectorAll(".hero-bio a, .record-copy a")];
+      assert(proseLinks.length === 9 && proseLinks.every(link =>
+        win.getComputedStyle(link).textDecorationLine.includes("underline")),
+        `${dark ? "Dark" : "Light"} inline prose links must have persistent underlines`);
     }
     doc.documentElement.classList.remove("dark-mode");
     header.classList.add("is-scrolled");

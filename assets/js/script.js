@@ -87,6 +87,17 @@ function focusPageHeading(view) {
   heading.addEventListener("blur", () => heading.removeAttribute("tabindex"), { once: true });
 }
 
+function initWorkJump() {
+  document.querySelectorAll("[data-scroll-to]").forEach(button => {
+    button.addEventListener("click", () => {
+      const section = document.getElementById(button.dataset.scrollTo);
+      if (!section) return;
+      focusPageHeading(section);
+      section.scrollIntoView({ behavior: motionQuery.matches ? "auto" : "smooth", block: "start" });
+    });
+  });
+}
+
 function setActivePage(page, { scrollToTop = false, animate = true, focus = true } = {}) {
   const incoming = pageMap.get(page);
   if (!incoming) return;
@@ -249,6 +260,7 @@ motionQuery.addEventListener("change", e => {
 setNavState(false);
 initThemeToggle();
 initNavigation();
+initWorkJump();
 initHeader();
 initYear();
 initScrollToTop();
