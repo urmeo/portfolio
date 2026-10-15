@@ -95,7 +95,7 @@ function syncHash(pageName) {
 }
 
 function focusFirstHeading(container) {
-  const heading = container.querySelector("h1, h2");
+  const heading = container.querySelector("h1, h2, h3");
   if (!heading || document.activeElement === heading) return;
 
   heading.setAttribute("tabindex", "-1");
