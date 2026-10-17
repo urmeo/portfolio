@@ -1,15 +1,7 @@
-## Summary
+## Change
 
-What this change does and why.
+Describe what changed and why.
 
-## Checklist
+## Validation
 
-- [ ] Checked affected pages in light and dark themes at desktop and mobile widths
-- [ ] Checked links, images, keyboard navigation and visible focus
-- [ ] Browser checks report zero failures with normal and reduced motion
-- [ ] Checked print preview for layout or style changes
-- [ ] Kept plain HTML, CSS and JavaScript with no build step
-
-## Notes
-
-Browser and version, if this is a rendering fix.
+Describe the relevant checks you ran. For rendering changes, include the browser version and screenshots.

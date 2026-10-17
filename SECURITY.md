@@ -4,4 +4,4 @@ The portfolio is a static site hosted on GitHub Pages. Its code has no forms or 
 
 Fonts come from the visitor's system. The hosting service receives requests for pages and assets. External links open other websites.
 
-The current published version is supported. If the repository's **Security** tab offers **Report a vulnerability**, use it to report a vulnerability privately. Do not include credentials, personal information or sensitive exploit details in public issues.
+If the repository's **Security** tab offers **Report a vulnerability**, use it to report a vulnerability privately. Do not include credentials, personal information or sensitive exploit details in public issues.
