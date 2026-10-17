@@ -12,6 +12,13 @@ const results = document.querySelector("#results");
 const failures = [];
 let passed = 0;
 const wait = ms => new Promise(resolve => setTimeout(resolve, ms));
+async function waitFor(condition, message) {
+  const deadline = performance.now() + 2000;
+  while (!condition()) {
+    if (performance.now() > deadline) throw new Error(message);
+    await wait(20);
+  }
+}
 function assert(condition, message) {
   if (condition) passed++;
   else failures.push(message);
@@ -96,7 +103,7 @@ frame.addEventListener("load", async () => {
     const scrollTo = win.scrollTo;
     const visiblePages = () => [...doc.querySelectorAll(".page-view")].filter(v => !v.hidden);
     const navigate = page => {
-      win.location.hash = page;
+      win.history.replaceState(null, "", `#${page}`);
       win.syncPage({ scrollToTop: true });
     };
 
@@ -104,26 +111,32 @@ frame.addEventListener("load", async () => {
       "Initial load must preserve the first keyboard stop at Skip to content");
 
     navigate("education");
+    assert(visiblePages().length === 1 && visiblePages()[0].dataset.page === "education",
+      "Navigation must reveal its destination immediately");
     navigate("home");
-    await wait(400);
     assert(visiblePages().length === 1 && visiblePages()[0].dataset.page === "home",
-      "Returning home during a transition must cancel the pending destination");
-    assert(win.getComputedStyle(doc.querySelector('[data-page="home"]')).opacity === "1",
-      "Cancelling a transition must restore the current page's opacity");
+      "Returning home immediately must preserve the latest destination");
     const activeNavigationLinks = [...doc.querySelectorAll('.nav-list a[aria-current="page"]')];
     assert(activeNavigationLinks.length === 1 && activeNavigationLinks[0].dataset.pageLink === "home",
       "Exactly one active navigation link must match the visible page");
 
     navigate("education");
     navigate("about");
-    await wait(400);
     assert(visiblePages().length === 1 && visiblePages()[0].dataset.page === "about",
       "Rapid navigation must show only the final destination");
     assert(doc.activeElement === visiblePages()[0].querySelector("h1, h2"),
       "Navigation must focus the destination heading");
 
+    const hashChanged = new Promise(resolve => win.addEventListener("hashchange", resolve, { once: true }));
+    win.location.hash = "education";
+    await hashChanged;
+    assert(visiblePages().length === 1 && visiblePages()[0].dataset.page === "education",
+      "Changing the URL hash must reveal the requested route");
+    assert(doc.activeElement === visiblePages()[0].querySelector("h1, h2"),
+      "A URL hash change must focus the destination heading");
+    navigate("about");
+
     doc.querySelector(".skip-link").click();
-    await wait(400);
     assert(visiblePages()[0].dataset.page === "about" && win.location.hash === "#about",
       "Skipping navigation must preserve the current page");
     assert(doc.activeElement === doc.querySelector("#content-root"),
@@ -137,13 +150,16 @@ frame.addEventListener("load", async () => {
     assert(toggle.getAttribute("aria-expanded") === "false", "Escape must close mobile navigation");
     assert(doc.activeElement === toggle, "Escape must return focus to the navigation toggle");
 
-    win.scrollTo({ top: 0, behavior: "instant" });
-    await wait(400);
     const backToTop = doc.querySelector(".scroll-top");
+    win.scrollTo({ top: 0, behavior: "instant" });
+    await waitFor(() => win.scrollY === 0 && win.getComputedStyle(backToTop).visibility === "hidden",
+      "Back-to-top must hide at the top of the page");
     backToTop.focus();
     assert(doc.activeElement !== backToTop, "The invisible back-to-top button must not receive focus");
     win.scrollTo({ top: 700, behavior: "instant" });
-    await wait(400);
+    await waitFor(() => win.scrollY > 500 && win.getComputedStyle(backToTop).visibility === "visible" &&
+      win.getComputedStyle(backToTop).opacity === "1",
+      "Back-to-top must become visible after scrolling");
     backToTop.focus();
     assert(doc.activeElement === backToTop, "The visible back-to-top button must receive focus");
 
@@ -157,7 +173,6 @@ frame.addEventListener("load", async () => {
     assert(doc.title === visiblePages()[0].dataset.title,
       "The document title must match the visible route");
     navigate("missing-route");
-    await wait(400);
     assert(win.location.hash === "#home" && visiblePages()[0].dataset.page === "home",
       "Unknown routes must normalize to Home");
 
@@ -183,22 +198,22 @@ frame.addEventListener("load", async () => {
       "Exploring research must preserve the current route");
     selectedWork.scrollIntoView = scrollIntoView;
 
-    const callbacks = [];
-    const requestFrame = win.requestAnimationFrame;
-    const cancelFrame = win.cancelAnimationFrame;
-    win.requestAnimationFrame = callback => { callbacks.push(callback); return callbacks.length; };
-    win.cancelAnimationFrame = () => {};
+    const themeToggle = doc.querySelector(".theme-toggle");
+    themeToggle.focus();
     win.history.replaceState(null, "", "#education");
-    win.setActivePage("education");
-    await wait(180);
+    win.syncPage({ focus: false });
+    assert(visiblePages()[0].dataset.page === "education" && doc.activeElement === themeToggle,
+      "An explicit focus preference must preserve the current keyboard position");
+    win.syncPage();
+    assert(doc.activeElement === themeToggle,
+      "Synchronizing the current route without scrolling must preserve focus");
+    win.syncPage({ scrollToTop: true, focus: false });
+    assert(doc.activeElement === themeToggle,
+      "Scrolling the current route with focus disabled must preserve focus");
     win.history.replaceState(null, "", "#about");
-    win.setActivePage("about");
-    await wait(180);
-    callbacks.forEach(callback => callback());
+    win.syncPage();
     assert(visiblePages()[0].dataset.page === "about" && doc.activeElement === visiblePages()[0].querySelector("h1, h2"),
-      "A stale animation frame must not focus an earlier destination");
-    win.requestAnimationFrame = requestFrame;
-    win.cancelAnimationFrame = cancelFrame;
+      "Changing routes without scrolling must still focus the destination heading");
 
     const wasDark = doc.documentElement.classList.contains("dark-mode");
     const header = doc.querySelector(".site-header");
@@ -230,13 +245,12 @@ frame.addEventListener("load", async () => {
     const printStyle = doc.createElement("style");
     printStyle.textContent = printRules;
     doc.head.appendChild(printStyle);
-    doc.querySelectorAll(".page-view").forEach(view => view.classList.add("page-out"));
     for (const dark of [false, true]) {
       doc.documentElement.classList.toggle("dark-mode", dark);
       const label = dark ? "Dark" : "Light";
       const views = [...doc.querySelectorAll(".page-view")].map(view => win.getComputedStyle(view));
-      assert(views.length === 3 && views.every(style => style.display === "block" && style.opacity === "1" && style.animationName === "none"),
-        `${label} print rules must show all three routes without transitions`);
+      assert(views.length === 3 && views.every(style => style.display === "block"),
+        `${label} print rules must show all three routes`);
       const copy = [...doc.querySelectorAll(".hero-bio,.paper-tags,.record-role,.record-meta,.skill-items,.service-list li,.hobby-card p,.page-footer p")];
       assert(win.getComputedStyle(doc.body).backgroundColor === "rgb(255, 255, 255)" &&
         copy.every(element => win.getComputedStyle(element).color === "rgb(0, 0, 0)"),
@@ -244,15 +258,14 @@ frame.addEventListener("load", async () => {
       assert(win.getComputedStyle(doc.querySelector(".code-link")).color === "rgb(37, 79, 121)" &&
         win.getComputedStyle(doc.querySelector(".hobby-card")).backgroundColor === "rgba(0, 0, 0, 0)",
         `${label} print links and cards must ignore screen theme colors`);
-      const whiteIcons = [...doc.querySelectorAll('.sdg-icon [stroke="white"],.sdg-icon [stroke="#fff"],.sdg-icon [fill="white"],.sdg-icon [fill="#fff"]')];
+      const whiteIcons = [...doc.querySelectorAll('.sdg-icon [stroke="white"],.sdg-icon [fill="white"]')];
       assert(whiteIcons.length === 3 && whiteIcons.every(icon =>
-        ["white", "#fff"].includes(icon.getAttribute("stroke")) ?
+        icon.getAttribute("stroke") === "white" ?
           win.getComputedStyle(icon).stroke === "rgb(0, 0, 0)" :
           win.getComputedStyle(icon).fill === "rgb(0, 0, 0)"),
         `${label} print icons must remain visible after removing colored backgrounds`);
     }
     printStyle.remove();
-    doc.querySelectorAll(".page-view").forEach(view => view.classList.remove("page-out"));
     doc.documentElement.classList.toggle("dark-mode", wasDark);
 
     const blocked = await loadProbe("../index.html", { blockStorage: true });
@@ -278,9 +291,8 @@ frame.addEventListener("load", async () => {
       "Removing the saved choice must follow the current OS theme");
     blocked.fixtureMedia.motion.set(true);
     blocked.setActivePage("education");
-    assert(!blockedDoc.querySelector('[data-page="education"]').hidden &&
-      !blockedDoc.querySelector(".page-out,.page-in"),
-      "Enabling reduced motion must make subsequent navigation immediate");
+    assert(!blockedDoc.querySelector('[data-page="education"]').hidden,
+      "Navigation must remain immediate after changing the motion preference");
     const motionScrolls = [];
     blocked.scrollTo = options => motionScrolls.push(options);
     const blockedBackToTop = blockedDoc.querySelector(".scroll-top");
