@@ -117,7 +117,6 @@
             width="1170"
             height="1344"
           >
-          <figcaption class="hero-caption">Research in multimodal sensing and behaviour.</figcaption>
         </figure>
       </div>
 
@@ -154,12 +153,8 @@
           <div class="paper-copy">
             <p class="project-kind">01 / Longitudinal research</p>
             <h3 class="paper-title">Multimodal-Multisensor</h3>
-            <p class="paper-summary">Studying anxiety over time through eye-tracking, cardiac signals and questionnaire responses.</p>
-            <ul class="project-facts">
-              <li>Longitudinal eye-tracking and heart-rate variability (HRV) study.</li>
-              <li>Combines physiological recordings with psychometric assessment.</li>
-            </ul>
-            <p class="paper-tags">Longitudinal · Eye-tracking · HRV · ICC</p>
+            <p class="paper-summary">Longitudinal anxiety research combining eye-tracking, cardiac recordings and questionnaire-based psychometric assessment.</p>
+            <p class="paper-tags">Heart-rate variability (HRV) · ICC</p>
             <p class="paper-links"><a href="https://www.icdvrat.com/2024/ICDVRAT2024-Proceedings.pdf#page=172" target="_blank" rel="noopener noreferrer" class="code-link">Read paper</a> <a href="https://github.com/urmeo/multimodal-multisensor" target="_blank" rel="noopener noreferrer" class="code-link">Repository</a> <a href="https://urmeo.github.io/psychometric/en/index.html" target="_blank" rel="noopener noreferrer" class="code-link">Questionnaire demo</a></p>
             <p class="project-note"><strong>Evidence note:</strong> Released group summaries lack complete participant links.</p>
           </div>
@@ -195,10 +190,10 @@
             <h3 class="paper-title">CalmSense</h3>
             <p class="paper-summary">Stress recognition from wearable signals, evaluated on participants held out from training.</p>
             <ul class="project-facts">
-              <li>WESAD: 15 subjects, 58 saved features and leave-one-subject-out (LOSO) evaluation.</li>
+              <li>WESAD: 15 subjects and 58 saved features.</li>
               <li>Random forest binary accuracy: <strong>0.910</strong>, averaged across subjects.</li>
             </ul>
-            <p class="paper-tags">WESAD · LOSO · SHAP · Calibration</p>
+            <p class="paper-tags">SHAP · Calibration</p>
             <p class="paper-links"><a href="https://github.com/urmeo/calm-sense" target="_blank" rel="noopener noreferrer" class="code-link">Repository</a> <a href="https://github.com/urmeo/calm-sense/blob/2f29a3ee9d340754f1a66e6830e357621ab974bb/outputs/results/metrics.json" target="_blank" rel="noopener noreferrer" class="code-link">Recorded metrics</a> <a href="https://urmeo.github.io/calm-sense/" target="_blank" rel="noopener noreferrer" class="code-link">Live demo</a></p>
             <p class="project-note"><strong>Evidence note:</strong> Historical benchmark; current code differs from the version behind these recorded metrics.</p>
           </div>
@@ -279,7 +274,7 @@
               <li>26,288 panel hours. 2024 unweighted holdout: AUROC <strong>0.936</strong>; expected calibration error (ECE) <strong>0.044</strong>.</li>
               <li>Sources: Open-Meteo/CAMS. Exclusions: heat index ≥103°F or AQI ≥150.</li>
             </ul>
-            <p class="paper-tags">Demand · Weather · AQI · Logistic</p>
+            <p class="paper-tags">Logistic</p>
             <p class="paper-links"><a href="https://github.com/urmeo/pulse-shift" target="_blank" rel="noopener noreferrer" class="code-link">Repository</a> <a href="https://github.com/urmeo/pulse-shift/blob/3a134ea45fb5b274cd5a959762b493c03319c455/outputs/tables/holdout_predictions.csv" target="_blank" rel="noopener noreferrer" class="code-link">Source predictions</a> <a href="https://urmeo.github.io/pulse-shift/" target="_blank" rel="noopener noreferrer" class="code-link">Live demo</a></p>
             <p class="project-note"><strong>Evidence note:</strong> Individual activity and health benefits were not measured.</p>
           </div>
@@ -308,7 +303,6 @@
             <figcaption class="figure-notes">
               <div class="figure-context">
                 <p>2024 held-out evaluation. ROC curves compare true and false positive rates across decision thresholds.</p>
-                <p>Exact unweighted holdout: AUROC 0.936; expected calibration error (ECE) 0.044.</p>
               </div>
               <table class="results-table">
                 <caption>AUROC rounded in the original figure</caption>
@@ -343,10 +337,9 @@
             <h3 class="paper-title">NexusRAG</h3>
             <p class="paper-summary">Search local documents and generate answers with source citations.</p>
             <ul class="project-facts">
-              <li>PDF, DOCX, Markdown and text files → LanceDB + BM25 retrieval → Ollama.</li>
+              <li>Inputs: PDF, DOCX, Markdown and text files.</li>
               <li>Retrieval can expand once with pseudo-relevance feedback (PRF) below 0.55 similarity. Natural-language inference (NLI) is optional.</li>
             </ul>
-            <p class="paper-tags">RAG · LanceDB · BM25 · Ollama</p>
             <p class="paper-links"><a href="https://github.com/urmeo/nexus-rag" target="_blank" rel="noopener noreferrer" class="code-link">Repository</a> <a href="https://github.com/urmeo/nexus-rag/tree/d9478d9931fa27088f153cca64d87604c6f914f6/outputs/results" target="_blank" rel="noopener noreferrer" class="code-link">Recorded evaluations</a> <a href="https://youtu.be/AbSin2y_XEw" target="_blank" rel="noopener noreferrer" class="code-link">Watch demo</a></p>
             <p class="project-note"><strong>Evidence note:</strong> Citation indices are checked; generated-answer accuracy was not measured, and claims still need review.</p>
           </div>
@@ -422,8 +415,8 @@
           <div class="paper-copy">
             <p class="project-kind">05 / Generative exploration</p>
             <h3 class="paper-title">NovaVision</h3>
-            <p class="paper-summary">A prototype that turns text prompts into images, then scores the images for emotion.</p>
-            <p class="paper-tags">Affect · SD-Turbo · CLIP · Evaluation</p>
+            <p class="paper-summary">A prototype for image generation and emotion scoring.</p>
+            <p class="paper-tags">SD-Turbo · CLIP</p>
             <p class="paper-links"><a href="https://github.com/urmeo/nova-vision" target="_blank" rel="noopener noreferrer" class="code-link">Repository</a> <a href="https://youtu.be/S7LZsnMPOmA" target="_blank" rel="noopener noreferrer" class="code-link">Watch demo</a></p>
             <p class="project-note"><strong>Evidence note:</strong> Original pilot images are missing; recovery results are unverified.</p>
           </div>
@@ -470,7 +463,7 @@
         <p class="page-intro">An engineering foundation, followed by Erasmus Mundus training in behavioural research and digital therapy.</p>
       </section>
 
-      <section class="record-list">
+      <section>
         <article class="record-entry">
           <div class="record-logo">
             <img
@@ -719,7 +712,6 @@
               <svg viewBox="0 0 24 24" fill="currentColor"><path d="M19 22H5v-2h14v2M13 2h-2v2H9v2h2v1.07A7 7 0 0 0 5 14a7 7 0 0 0 7 7 7 7 0 0 0 7-7 7 7 0 0 0-4-6.27V6h2V4h-2V2m0 8.15A5 5 0 0 1 17 14a5 5 0 0 1-5 5 5 5 0 0 1-5-5 5 5 0 0 1 4-4.9V11h2v-0.85z"/></svg>
             </div>
             <h3>Chess</h3>
-            <p><strong>Favorites:</strong></p>
             <ul>
               <li>The Sicilian Defense</li>
               <li>The Queen’s Gambit</li>
@@ -733,7 +725,6 @@
             </div>
             <h3>Reading</h3>
             <p>Philosophy, science fiction, literary fiction.</p>
-            <p><strong>Favorites:</strong></p>
             <ul>
               <li>Meditations (Aurelius)</li>
               <li>Nexus (Harari)</li>
@@ -746,7 +737,6 @@
               <svg viewBox="0 0 24 24" fill="currentColor"><path d="M17.9 17.39c-.26-.8-1-1.39-1.9-1.39h-1v-3a1 1 0 0 0-1-1H8v-2h2a1 1 0 0 0 1-1V7h2a2 2 0 0 0 2-2v-.41A9.98 9.98 0 0 1 22 12c0 2.17-.7 4.17-1.87 5.79l-2.23-.4M12 2a10 10 0 1 0 0 20A10 10 0 0 0 12 2m-1 17.93c-3.95-.49-7-3.85-7-7.93 0-.62.08-1.21.21-1.79L9 15v1a2 2 0 0 0 2 2v1.93z"/></svg>
             </div>
             <h3>Traveling</h3>
-            <p><strong>Favorites:</strong></p>
             <ul>
               <li>Paris</li>
               <li>Barcelona</li>
@@ -759,7 +749,6 @@
               <svg viewBox="0 0 24 24" fill="currentColor"><path d="M13.5 5.5a2 2 0 1 0 0-4 2 2 0 0 0 0 4M9.8 8.9L7 23h2.1l1.8-8 2.1 2v6h2v-7.5l-2.1-2 .6-3A7.3 7.3 0 0 0 18 13v-2a5.3 5.3 0 0 1-3.7-1.5L13 8a2 2 0 0 0-1.4-.6c-.4 0-.8.1-1.1.3L7 9.5V13h2V11l.8-.4z"/></svg>
             </div>
             <h3>Hiking</h3>
-            <p><strong>Favorites:</strong></p>
             <ul>
               <li>Lac Blanc, France</li>
               <li>Montserrat, Spain</li>

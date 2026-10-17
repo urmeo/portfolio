@@ -10,9 +10,6 @@ const HEADER_SCROLL_THRESHOLD = 48;
 const reducedMotionQuery = window.matchMedia("(prefers-reduced-motion: reduce)");
 
 const pagesByName = new Map(pageViews.map(pageView => [pageView.dataset.page, pageView]));
-let transitionTimeout = null;
-let focusAnimationFrame = null;
-let navigationRevision = 0;
 
 if ("scrollRestoration" in history) {
   history.scrollRestoration = "manual";
@@ -118,22 +115,14 @@ function initSectionNavigation() {
   });
 }
 
-function setActivePage(pageName, { scrollToTop = false, animate = true, focus = true } = {}) {
+function setActivePage(pageName, { scrollToTop = false, focus = true } = {}) {
   const incomingPage = pagesByName.get(pageName);
   if (!incomingPage) return;
 
   const outgoingPage = pageViews.find(pageView => !pageView.hidden);
-  const transitionRevision = ++navigationRevision;
-
-  if (transitionTimeout !== null) {
-    clearTimeout(transitionTimeout);
-    transitionTimeout = null;
-  }
-  if (focusAnimationFrame !== null) {
-    cancelAnimationFrame(focusAnimationFrame);
-    focusAnimationFrame = null;
-  }
-  pagesByName.forEach(pageView => pageView.classList.remove("page-out", "page-in"));
+  pagesByName.forEach((pageView, name) => {
+    pageView.hidden = name !== pageName;
+  });
 
   navigationLinks.forEach(link => {
     if (link.dataset.pageLink === pageName) {
@@ -146,54 +135,11 @@ function setActivePage(pageName, { scrollToTop = false, animate = true, focus = 
     document.title = incomingPage.dataset.title;
   }
 
-  if (!outgoingPage || outgoingPage === incomingPage) {
-    pagesByName.forEach((pageView, name) => {
-      pageView.hidden = name !== pageName;
-    });
-    if (scrollToTop) {
-      window.scrollTo({ top: 0, behavior: "instant" });
-      if (focus) focusFirstHeading(incomingPage);
-    }
-    return;
+  if (scrollToTop) {
+    window.scrollTo({ top: 0, behavior: "instant" });
   }
-
-  const showIncomingPage = () => {
-    if (transitionRevision !== navigationRevision) return;
-
-    pagesByName.forEach((pageView, name) => {
-      pageView.hidden = name !== pageName;
-      pageView.classList.remove("page-out", "page-in");
-    });
-    if (scrollToTop) {
-      window.scrollTo({ top: 0, behavior: "instant" });
-    }
-
-    const focusIncomingHeading = () => {
-      if (transitionRevision !== navigationRevision || incomingPage.hidden) return;
-
-      focusAnimationFrame = null;
-      if (focus) focusFirstHeading(incomingPage);
-    };
-
-    if (animate && !reducedMotionQuery.matches) {
-      incomingPage.classList.add("page-in");
-      incomingPage.addEventListener("animationend", event => {
-        if (event.target === incomingPage && transitionRevision === navigationRevision) {
-          incomingPage.classList.remove("page-in");
-        }
-      }, { once: true });
-      focusAnimationFrame = requestAnimationFrame(focusIncomingHeading);
-    } else {
-      focusIncomingHeading();
-    }
-    transitionTimeout = null;
-  };
-
-  if (animate && !reducedMotionQuery.matches) {
-    outgoingPage.classList.add("page-out");
-    transitionTimeout = setTimeout(showIncomingPage, 140);
-  } else {
-    showIncomingPage();
+  if (focus && (scrollToTop || (outgoingPage && outgoingPage !== incomingPage))) {
+    focusFirstHeading(incomingPage);
   }
 }
 
@@ -316,9 +262,6 @@ function initBackToTop() {
 }
 
 window.addEventListener("hashchange", () => syncPage({ scrollToTop: true }));
-reducedMotionQuery.addEventListener("change", event => {
-  if (event.matches) syncPage({ animate: false });
-});
 
 setNavigationOpen(false);
 initThemeToggle();
@@ -327,4 +270,4 @@ initSectionNavigation();
 initHeaderScrollState();
 initCopyrightYear();
 initBackToTop();
-syncPage({ scrollToTop: true, animate: false, focus: false });
+syncPage({ scrollToTop: true, focus: false });
