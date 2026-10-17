@@ -1,49 +1,11 @@
-# Contributor Covenant Code of Conduct
+# Code of conduct
 
-## Our Pledge
+Treat everyone respectfully and keep discussion constructive.
 
-We as members, contributors, and leaders pledge to make participation in our community a
-harassment-free experience for everyone, regardless of age, body size, visible or invisible
-disability, ethnicity, sex characteristics, gender identity and expression, level of experience,
-education, socio-economic status, nationality, personal appearance, race, religion, or sexual
-identity and orientation.
+Harassment, discrimination, threats, sexualized attention and personal attacks are unacceptable.
 
-We pledge to act and interact in ways that contribute to an open, welcoming, diverse, inclusive,
-and healthy community.
+Respect others' privacy. Do not share personal information without consent or include sensitive details in public reports.
 
-## Our Standards
+These standards apply to this repository and project spaces. The maintainer may remove content or restrict participation to enforce them.
 
-Examples of behavior that contributes to a positive environment include demonstrating empathy and
-kindness, being respectful of differing opinions and experiences, giving and gracefully accepting
-constructive feedback, accepting responsibility and apologizing to those affected by our mistakes,
-and focusing on what is best for the overall community.
-
-Unacceptable behavior includes the use of sexualized language or imagery and unwelcome sexual
-attention; trolling, insulting or derogatory comments, and personal or political attacks; public or
-private harassment; publishing others' private information without explicit permission; and other
-conduct which could reasonably be considered inappropriate in a professional setting.
-
-## Enforcement Responsibilities
-
-Community leaders are responsible for clarifying and enforcing these standards and will take
-appropriate and fair corrective action in response to any behavior they deem inappropriate,
-threatening, offensive, or harmful.
-
-## Scope
-
-This Code of Conduct applies within all community spaces, and also applies when an individual is
-officially representing the community in public spaces.
-
-## Enforcement
-
-Instances of abusive, harassing, or otherwise unacceptable behavior may be reported privately to the
-project maintainer ([@urmeo](https://github.com/urmeo)) on GitHub. All complaints will be reviewed
-and investigated promptly and fairly. Community leaders are obligated to respect the privacy and
-security of the reporter.
-
-## Attribution
-
-This Code of Conduct is adapted from the [Contributor Covenant][homepage], version 2.1, available at
-https://www.contributor-covenant.org/version/2/1/code_of_conduct.html.
-
-[homepage]: https://www.contributor-covenant.org
+Adapted from the [Contributor Covenant, version 2.1](https://www.contributor-covenant.org/version/2/1/code_of_conduct.html).
